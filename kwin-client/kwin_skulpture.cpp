@@ -24,7 +24,6 @@
 #include <KDE/KConfig>
 #include <KDE/KConfigGroup>
 #include <KDE/KLocale>
-#include <kdeversion.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QLibrary>
@@ -265,13 +264,11 @@ int QtMdiDecoration::layoutMetric(LayoutMetric lm, bool respectWindowState, cons
             return 2;
         case LM_ButtonMarginTop:
             return 0;
-#if KDE_IS_VERSION(4,3,0)
         case LM_OuterPaddingLeft:
         case LM_OuterPaddingTop:
         case LM_OuterPaddingRight:
         case LM_OuterPaddingBottom:
             return 0;
-#endif
     }
     return KCommonDecoration::layoutMetric(lm, respectWindowState, button);
 }

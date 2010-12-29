@@ -39,7 +39,6 @@
 #include <KDE/KLocale>
 #include <KDE/KIcon>
 #include <KDE/KAcceleratorManager>
-#include <kdeversion.h>
 
 
 /*-----------------------------------------------------------------------*/
@@ -260,11 +259,7 @@ void SkulptureStyleConfig::init()
 {
         aboutData = new KAboutData("skulpture", 0, ki18n("Sculpture"), "0.2.4",
             ki18n("Three-dimensional classical artwork."),
-#if KDE_IS_VERSION(4,1,0)
             KAboutData::License_GPL_V3,
-#else
-            KAboutData::License_GPL,
-#endif
             ki18n("(c) 2007-2010, Christoph Feck"), KLocalizedString(),
             "http://skulpture.maxiom.de/", "christoph@maxiom.de");
         KComponentData tempComponentData(aboutData);
@@ -411,16 +406,9 @@ SkulptureStyleConfig::~SkulptureStyleConfig()
         if (previewWindow) {
             previewWindow->hide();
             previewWindow->setParent(0);
-#if KDE_IS_VERSION(4,1,1)
             KGlobal::setAllowQuit(false);
             delete previewWindow;
             KGlobal::setAllowQuit(true);
-#else
-            // ### replacement code for older KDE versions?
-            //KGlobal::ref();
-            delete previewWindow;
-            //KGlobal::deref();
-#endif
         }
         delete componentData;
         delete aboutData;
