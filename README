@@ -22,10 +22,8 @@ can set this style as the Qt default style with the "qtconfig" program.
 
 *** Version Information ***
 
-This is version 0.2.4 of Skulpture, released on 08-Feb-2010.  See NEWS for
-a summary of changes relative to the previous version, and NOTES for
-additional information for this version.  Some features are still missing;
-see BUGS for details.
+This is a snapshot version of Skulpture, released without updated release
+notes, bug list, or change summary.  See VERSION for the version number.
 
 To find out if a newer version of Skulpture is available, please visit the
 Skulpture homepage at http://skulpture.maxiom.de/
