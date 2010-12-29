@@ -1,52 +1,23 @@
 project (skulpture)
-cmake_minimum_required (VERSION 2.4)
+cmake_minimum_required (VERSION 2.6)
 
-find_package (KDE4)
+set (KDE_MIN_VERSION "4.4.0") # for the < 4.2 macro
+find_package (KDE4 4.4.0 REQUIRED)
+find_package (KDE4Workspace REQUIRED)
 
-add_definitions (-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_KEYWORDS -DQT_STRICT_ITERATORS -DQT_NO_DYNAMIC_CAST)
-
-configure_file (config.h.cmake ${CMAKE_BINARY_DIR}/config.h)
-
-if (KDE4_FOUND)
-    include (KDE4Defaults)
-    include (MacroLibrary)
-    add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-    include_directories (${KDE4_INCLUDES} ${CMAKE_BINARY_DIR})
-#    find_package (KDE4Workspace QUIET)
-    set (KDE4WORKSPACE_FOUND OFF)
-    if (KDE4WORKSPACE_FOUND)
-        message (STATUS "Found KDE4Workspace")
-        include_directories (${KDE4WORKSPACE_INCLUDE_DIR})
-        set (BUILD_KWIN_CLIENT ON)
-    else (KDE4WORKSPACE_FOUND)
-        message (STATUS "Looking for kwinglobals.h")
-        find_file (KWINGLOBALS_H kwinglobals.h ${KDE4_INCLUDES})
-        if (KWINGLOBALS_H)
-            message (STATUS "Looking for kwinglobals.h - found")
-            set (BUILD_KWIN_CLIENT ON)
-        else (KWINGLOBALS_H)
-            message (STATUS "Looking for kwinglobals.h - not found.")
-        endif (KWINGLOBALS_H)
-    endif (KDE4WORKSPACE_FOUND)
-else (KDE4_FOUND)
-    set (QT_MIN_VERSION "4.1.0")
-    find_package (Qt4 REQUIRED)
-    include (UseQt4)
-    set (CMAKE_INCLUDE_CURRENT_DIR ON)
-    include_directories (${CMAKE_BINARY_DIR})
-endif (KDE4_FOUND)
+include (KDE4Defaults)
+include (MacroLibrary)
+add_definitions (
+    ${QT_DEFINITIONS}
+    ${KDE4_DEFINITIONS}
+)
+include_directories (
+    ${KDE4_INCLUDES}
+    ${KDE4WORKSPACE_INCLUDE_DIR}
+    ${CMAKE_BINARY_DIR}
+)
 
 add_subdirectory (src)
-
-if (KDE4_FOUND)
-    macro_optional_add_subdirectory (color-schemes)
-    macro_optional_add_subdirectory (desktoptheme)
-    if (BUILD_KWIN_CLIENT)
-        add_subdirectory (kwin-client)
-    else (BUILD_KWIN_CLIENT)
-        message ("WARNING: *** KWin headers not found, building without Skulpture window decoration ***")
-    endif (BUILD_KWIN_CLIENT)
-else (KDE4_FOUND)
-    message ("WARNING: *** KDE4 not found, building a Qt-only version of Skulpture ***")
-endif (KDE4_FOUND)
+add_subdirectory (color-schemes)
+add_subdirectory (kwin-client)
 

@@ -33,19 +33,10 @@ set (skulpture_SOURCES
     skulpture_p.cpp
 )
 
-#if (KDE4_FOUND)
-#	kde4_add_plugin (skulpture ${skulpture_SOURCES})
-#	target_link_libraries (skulpture ${KDE4_KDEUI_LIBS})
-#	install (TARGETS skulpture DESTINATION ${PLUGIN_INSTALL_DIR}/plugins/styles)
-#else (KDE4_FOUND)
-	qt4_automoc (${skulpture_SOURCES})
-	add_library (skulpture SHARED ${skulpture_SOURCES})
-	target_link_libraries (skulpture ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
-	install (TARGETS skulpture LIBRARY DESTINATION ${QT_PLUGINS_DIR}/styles)
-#endif (KDE4_FOUND)
+kde4_add_plugin (skulpture ${skulpture_SOURCES})
+target_link_libraries (skulpture ${KDE4_KDEUI_LIBS})
+install (TARGETS skulpture DESTINATION ${PLUGIN_INSTALL_DIR}/plugins/styles)
 
-if (KDE4_FOUND)
-	install (FILES skulpture.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes)
-	add_subdirectory (config)
-endif (KDE4_FOUND)
+install (FILES skulpture.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes)
+add_subdirectory (config)
 
