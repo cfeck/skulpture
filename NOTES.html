@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><title>Skulpture</title></head>
+<body>
+<h1 style="text-align: center">Release Notes</h1>
+
+<h2>Release Notes for Version&nbsp;0.2</h2>
+
+<h3>Double Click in Item Views</h3>
+<p>
+Under KDE&nbsp;4.4, Skulpture respects the system setting for the double click
+mode from KDE.  For older versions, you have to set the mode manually in
+~/.config/SkulptureStyle.ini:
+</p>
+<pre>
+    [%General]
+    UseSingleClickToActivateItems=false
+</pre>
+
+<h3>KWin Important Change</h3>
+<p>
+Starting with version&nbsp;0.2.4, the Skulpture KWin window decoration defaults
+to painting "on screen", because the previous method could cause problems,
+depending on the KWin version.  If you do not use compositing, or if you
+otherwise experience performance or rendering regressions, you can enable
+the old method by using this option in ~/.kde/share/config/kwinskulpturerc:
+</p>
+<pre>
+    [General]
+    PaintOnScreen=false
+</pre>
+
+<h3>Disabling Shadows</h3>
+<p>
+Skulpture features rendering of real shadows inside sunken views.  For views
+that are usually full-screen, such as Konsole, KWrite, or Konqueror, the
+shadows can degrade scrolling performance.  To disable shadows in those
+views, use the following option in ~/.config/SkulptureStyle.ini:
+</p>
+<pre>
+    [%General]
+    ExpensiveShadows=false
+</pre>
+
+<h3>Slider Sizes</h3>
+<p>
+Due to changes in version&nbsp;0.2.1, you will have to reconfigure slider sizes.
+Changing the scroll bar length only affects the minimum length the slider is
+going to have; it will usually be larger as its size grows proportionally to
+the amount of data visible.
+</p>
+
+<h3>Skulpture Requires Qt&nbsp;4.4 on KDE</h3>
+<p>
+If you want to build Skulpture with the KDE configuration dialog and window
+decoration, you need Qt&nbsp;4.4 or newer. The installation script does not check
+this; you will just get a compilation error, if you want to compile with an
+older version.
+</p>
+
+<h3>KDE Color Schemes</h3>
+<p>
+When running under KDE, Skulpture respects more colors from the KDE system
+settings.  You may need to change the "Alternate Background" or other colors,
+as previous versions of Skulpture ignored some of them.
+</p><p>
+You can force using the Window colors for disabled widgets using the "Make
+disabled widgets transparent" option.
+</p>
+
+<h3>Vertical Text Shift</h3>
+<p>
+Setting an odd value for the text shift (-3, -1, +1, +3, etc.) results in
+widgets that are one pixel larger compared to even text shift values. This
+is intentional.
+</p>
+
+<h3>Layout Properties</h3>
+<p>
+Skulpture allows configuring several layout attributes, such as element
+dimensions and spacing between elements.  Not all applications query these
+values from the style, so with some applications you might not get the
+desired effect.  Please report this to the developers of the application in
+question.
+</p><p>
+You can set a global strut (e.g. 12&nbsp;pixels) with qtconfig to get usable spin
+box controls with very small widgets.
+</p>
+
+<h3>Password Character</h3>
+<p>
+You can specifiy multiple password characters; the first one that is part of
+the widget font is used.  Under KDE, use the KCharSelect program to find
+a suitable character.
+</p>
+
+<h3>Settings Preview</h3>
+<p>
+You can place the preview in a different position using the following option
+in ~/.config/SkulptureStyle.ini:
+</p>
+<pre>
+    [ConfigDialog]
+    PreviewPosition={Top | Bottom | Left | Right | InTab | Hidden | Auto}
+</pre>
+</p><p>
+Starting with KDE&nbsp;4.1, a bug in "System Settings" prevents the dialog from
+using alien widgets, resulting in annoying flicker.  To work around this
+problem, please use "kcmshell4 style" instead of "systemsettings".
+</p>
+<hr />
+<h2>Release Notes for Version&nbsp;0.1</h2>
+
+<h3>KWin Buttons</h3>
+<p>
+The Skulpture KWin window decoration now supports more buttons.  KDE may add
+a "sticky" button, which pins a window so that it is visible on all screens.
+If you want to remove that button, you can configure the buttons with the
+"System Settings" application.
+</p>
+
+<h3>Skulpture Color Schemes</h3>
+<p>
+This version of Skulpture comes with experimental KDE&nbsp;4 color schemes.  The
+"vanilla" flavour is considered the default color scheme, although Skulpture
+should work with other color schemes, too.  Any feedback is appreciated.
+</p>
+
+<h3>Title Bar Colors</h3>
+<p>
+The Skulpture window decorations (KWin and MDI) now respect the colors from
+KDE System Settings.  If you prefer a dark title bar as in Skulpture&nbsp;0.0.4,
+you have to change the window title bar colors accordingly.  You must select
+"Apply Colors to non-KDE Applications" for this to work for MDI colors, too.
+</p>
+
+<h3>Settings Preview</h3>
+<p>
+There is now a preview area in the style configuration page, so that you can
+see the effect of each option immediately.  Known issues:
+</p>
+<ul>
+<li>The window decoration colors in the preview do not reflect the colors KDE
+    uses for its windows; they reflect the MDI window title bar coloring.
+    See section above for title bar colors.</li>
+<li>Whenever a setting is changed, a temporary file is updated on disk.</li>
+<li>Updating the preview, when a setting is changed, may cause some flicker.</li>
+<li>For the current range of available options, the preview is too excessive.
+    Expect more options in future versions.</li>
+</ul>
+</body>
+</html>

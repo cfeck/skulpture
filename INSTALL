@@ -1,0 +1,23 @@
+=== Installing Skulpture ===
+
+*** Installation ***
+
+Installation from source requires CMake.  To install, type the following at
+the shell prompt within the "skulpture-0.2.4" directory, including the
+dot.  Note that you are prompted for the root password during installation.
+
+	sh install.sh
+
+You should restart the system after installation, so that KWin sees the
+freshly installed style.
+
+
+*** Deinstallation ***
+
+To uninstall, type the following at the shell prompt within the directory
+from which you installed.  If you deleted that directory, just install it
+again.  Again, you are prompted for the root password.
+
+	sh uninstall.sh
+
+

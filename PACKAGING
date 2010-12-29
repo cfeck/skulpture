@@ -1,0 +1,32 @@
+=== Packaging Notes ===
+
+*** Packaging ***
+
+Skulpture is currently released as a source tarball only.  If you want to
+create a binary package for Skulpture, please include the following files.
+Recommended name for the package is something like "kde4-style-skulpture";
+package name and paths may be different for your distribution.
+
+Documentation text files:
+
+ * README, AUTHORS, COPYING, NEWS, NOTES, BUGS
+
+Installed configuration files:
+
+ * /usr/share/kde4/apps/kstyle/themes/skulpture.themerc
+ * /usr/share/kde4/apps/kwin/skulpture.desktop
+ * /usr/share/kde4/apps/skulpture/pics/skulpture.png
+ * /usr/share/kde4/apps/skulpture/skulptureui.rc
+ * /usr/share/kde4/apps/color-schemes/Skulpture*.colors (multiple files)
+
+Installed binary files:
+
+ * /usr/lib/qt4/plugins/styles/libskulpture.so
+ * /usr/lib/kde4/kstyle_skulpture_config.so
+ * /usr/lib/kde4/kwin3_skulpture.so
+ * /usr/lib/kde4/kwin_skulpture_config.so
+
+You may wish to contact the author, so that he can add binary packages to
+the website.
+
+
