@@ -135,7 +135,7 @@ void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *optio
             QRect r = option->rect;
             if (tabPos(option->shape) == North && r.top() > 0) {
                 r.setTop(0);
-            } else if (tabPos(option->shape) == South && qobject_cast<const QTabBar *>(widget) && widget->rect().bottom() != r.bottom()) {
+            } else if (tabPos(option->shape) == South && qobject_cast<const QTabBar *>(widget) && widget->rect().bottom() > r.bottom()) {
                 r.setBottom(widget->rect().bottom());
             } else {
                 return;
