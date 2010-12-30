@@ -278,7 +278,7 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option
 	indicator = *option;
 	indicator.rect.setSize(QSize(11, 11));
 	indicator.rect.translate(0, (option->rect.height() - 11) >> 1);
-	indicator.state = QStyle::State_Children;
+	indicator.state = QStyle::State_Children | (option->state & QStyle::State_Enabled);
 	if (option->state & QStyle::State_Selected) {
 		indicator.state |= QStyle::State_Open;
 	}
