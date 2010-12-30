@@ -247,11 +247,7 @@ QIcon SkulptureStyle::standardIconImplementation(QStyle::StandardPixmap standard
                             iconMode = QIcon::Active;
                             break;
                         case 2:
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                             iconMode = QIcon::Selected;
-#else
-                            iconMode = QIcon::Normal;
-#endif
                             break;
                         default:
                             iconMode = QIcon::Normal;

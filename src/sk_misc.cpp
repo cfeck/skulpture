@@ -12,7 +12,6 @@
 
 extern void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 #if 0
 void paintPanelPlacesViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style)
 {
@@ -119,7 +118,7 @@ void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *opt
 	}
 	painter->restore();
 }
-#endif
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -202,12 +201,10 @@ void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, co
 void paintSizeGrip(QPainter *painter, const QStyleOption *option)
 {
     Qt::Corner corner = Qt::BottomRightCorner;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
     if (option->type == QStyleOption::SO_SizeGrip) {
         const QStyleOptionSizeGrip *sizegrip = static_cast<const QStyleOptionSizeGrip *>(option);
         corner = sizegrip->corner;
     }
-#endif
 	QRect r;
 
 	switch (corner) {
@@ -249,11 +246,7 @@ void paintSizeGrip(QPainter *painter, const QStyleOption *option)
 
 extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option)
-#else
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
-#endif
 {
 	QRect r = option->rect;
 	if (option->state & QStyle::State_Selected) {
@@ -274,11 +267,9 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
 		button.rect.adjust(-1, -1, 1, 1);
 		// ### needs QPalette::Window ?
 		paintCommandButtonPanel(painter, &button, 0);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         } else if (option->version >= 2 && option->selectedPosition == QStyleOptionToolBoxV2::PreviousIsSelected) {
 		r.setHeight(2);
 		paintThinFrame(painter, r, option->palette, 60, -20);
-#endif
 	} else {
 	//	r.setHeight(2);
 	//	painter->fillRect(r, option->palette.color(QPalette::Window));
@@ -294,7 +285,7 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
 	paintIndicatorBranch(painter, &indicator);
 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style)
 {
     QStyleOptionToolBoxV2 opt;
@@ -309,7 +300,7 @@ void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, 
     }
     ((QCommonStyle *) style)->QCommonStyle::drawControl(QStyle::CE_ToolBoxTabLabel, &opt, painter, widget);
 }
-#endif
+
 
 /*-----------------------------------------------------------------------*/
 

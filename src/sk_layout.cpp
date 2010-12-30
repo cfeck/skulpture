@@ -9,11 +9,10 @@
 #include <QtGui/QApplication>
 #include <QtGui/QShortcut>
 #include <QtGui/QLayout>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 #include <QtGui/QFormLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QCheckBox>
-#endif
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -160,15 +159,9 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_TitleBarHeight: return d->textLineHeight(option, widget) + 4;
 
         case PM_MenuScrollerHeight: return (fontHeight(option, widget) >> 1) + 2;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         case PM_MenuHMargin: return 1;
         case PM_MenuVMargin: return 1;
         case PM_MenuPanelWidth: return 1;
-#else
-        case PM_MenuHMargin: return runtimeQtVersion() < QT_VERSION_CHECK(4, 4, 0) ? 0 : 1; // ### anything other than 0 messes Qt's menu positioning code ...
-        case PM_MenuVMargin: return runtimeQtVersion() < QT_VERSION_CHECK(4, 4, 0) ? 0 : 1;
-        case PM_MenuPanelWidth: return runtimeQtVersion() < QT_VERSION_CHECK(4, 4, 0) ? 2 : 1;
-#endif
         case PM_MenuTearoffHeight: return (fontHeight(option, widget) >> 1) + 2;
         case PM_MenuDesktopFrameWidth: return 0;
 
@@ -191,13 +184,8 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_DialogButtonsButtonWidth: return 64;
         case PM_DialogButtonsButtonHeight: return 16;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         case PM_MdiSubWindowFrameWidth: return 3;
         case PM_MdiSubWindowMinimizedWidth: return fontHeight(option, widget) * 12;
-#else
-        case PM_MDIFrameWidth: return 3;
-        case PM_MDIMinimizedWidth: return fontHeight(option, widget) * 12;
-#endif
 
         case PM_HeaderMargin: return 3;
         case PM_HeaderMarkSize: return 5;
@@ -235,10 +223,7 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         }
 
         case PM_ToolBarIconSize:
-            if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 0)) {
-                break;
-            }
-            return pixelMetric(PM_SmallIconSize, option, widget);
+            return QCommonStyle::pixelMetric(metric, option, widget);
         case PM_ListViewIconSize: return pixelMetric(PM_SmallIconSize, option, widget);
         case PM_IconViewIconSize: return pixelMetric(PM_LargeIconSize, option, widget);
         case PM_SmallIconSize: {
@@ -275,12 +260,9 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_SizeGripSize: return 13; // ### make this variable
         case PM_DockWidgetTitleMargin: return 2;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
         case PM_MessageBoxIconSize: return pixelMetric(PM_LargeIconSize, option, widget);
         case PM_ButtonIconSize: return pixelMetric(PM_SmallIconSize, option, widget);
-#endif
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         case PM_DockWidgetTitleBarButtonMargin: return 0;
         case PM_RadioButtonLabelSpacing:  {
             if (d->labelSpacing >= 0) {
@@ -303,9 +285,7 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_LayoutVerticalSpacing: {
             return -1;
         }
-#endif
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         case PM_TabBar_ScrollButtonOverlap: return 0;
         case PM_TextCursorWidth: {
             if (d->textCursorWidth > 0) {
@@ -313,24 +293,13 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
             }
             return qMax(1, (fontHeight(option, widget) + 8) / 12);
         }
-#else
-        // used for TextCursorWidth in Qt < 4.4
-        case PM_CustomBase + 1: {
-            if (d->textCursorWidth > 0) {
-                return qMax(1, int(d->textCursorWidth + 0.5));
-            }
-            return qMax(1, (fontHeight(option, widget) + 8) / 12);
-        }
-#endif
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
         case PM_TabCloseIndicatorWidth:
         case PM_TabCloseIndicatorHeight: {
             return (fontHeight(option, widget) & ~1);
         }
         case PM_ScrollView_ScrollBarSpacing: return 0;
         case PM_SubMenuOverlap: return -2;
-#endif
 
         case PM_CustomBase: // avoid warning
             break;
@@ -340,7 +309,7 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
 
 
 /*-----------------------------------------------------------------------*/
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+
 int SkulptureStyle::layoutSpacingImplementation(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2, Qt::Orientation orientation, const QStyleOption *option, const QWidget *widget) const
 {
     Q_UNUSED(control2);
@@ -369,7 +338,7 @@ int SkulptureStyle::layoutSpacingImplementation(QSizePolicy::ControlType control
     }
     return pixelMetric(PM_DefaultLayoutSpacing, option, widget);
 }
-#endif
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -548,15 +517,9 @@ QSize SkulptureStyle::sizeFromContents(ContentsType type, const QStyleOption *op
         case CT_DialogButtons: return contentsSize;
         case CT_HeaderSection: break;
 
-//#if (QT_VERSION >= QT_VERSION_CHECK(4, 1, 0))
         CT_CASE(GroupBox, GroupBox);
-//#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         case CT_MdiControls: break;
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         case CT_ItemViewItem: break;
-#endif
 
         case CT_CustomBase: // avoid warning
             break;
@@ -572,7 +535,7 @@ extern QRect subElementRectComboBoxFocusRect(const QStyleOptionComboBox *option,
 
 
 /*-----------------------------------------------------------------------*/
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
+
 static inline QRect subElementRectFrameContents(const QStyleOption *option, const QWidget *widget, const QStyle *style)
 {
     Q_UNUSED(style);
@@ -610,21 +573,13 @@ static inline QRect subElementRectLineEditContents(const QStyleOptionFrame *opti
 
     int fw = option->lineWidth;
     int adjust = 0;
-    /// TODO replace with runtime version check
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 6, 1))
     if (textShift & 1) {
         adjust = -1;
         textShift &= ~1;
     }
-#else
-    // ### can the 4.6.1 code be used on < 4.6.1 ???
-    if (textShift & 1 && !(option->rect.height() & 1)) {
-        textShift += 1;
-    }
-#endif
     return option->rect.adjusted(fw + 2, fw + ((-textShift) >> 1), -fw - 2, -fw + ((-textShift) >> 1) + adjust);
 }
-#endif
+
 
 /*-----------------------------------------------------------------------*/
 
@@ -695,18 +650,14 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
             }
             return QCommonStyle::subElementRect(element, option, widget).adjusted(1, 1, -1, 1);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         case SE_ItemViewItemCheckIndicator:
-#else
-        case SE_ViewItemCheckIndicator:
-#endif
             break;
 
         case SE_TabBarTearIndicator:
 
         case SE_TreeViewDisclosureItem:
             break;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
+
         case SE_LineEditContents:
             if (option->type == QStyleOption::SO_Frame) {
                 return subElementRectLineEditContents((const QStyleOptionFrame *) option, widget, this, d->textShift);
@@ -714,8 +665,7 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
             break;
         case SE_FrameContents:
             return subElementRectFrameContents(option, widget, this);
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+
         case SE_DockWidgetCloseButton:
         case SE_DockWidgetFloatButton:
         case SE_DockWidgetTitleBarText:
@@ -743,25 +693,22 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
         case SE_GroupBoxLayoutItem:
         case SE_TabWidgetLayoutItem:
             break;
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
+
         case SE_ItemViewItemDecoration:
         case SE_ItemViewItemText:
         case SE_ItemViewItemFocusRect:
             break;
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
+
         case SE_TabBarTabLeftButton:
         case SE_TabBarTabRightButton:
         case SE_TabBarTabText:
             break;
         case SE_ShapedFrameContents:
             break;
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 6, 0))
+
         case SE_ToolBarHandle:
             break;
-#endif
+
         case SE_CustomBase: // avoid warning
             break;
     }
@@ -770,7 +717,7 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
 
 
 /*-----------------------------------------------------------------------*/
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
+
 void SkulptureStyle::Private::polishFormLayout(QFormLayout *layout)
 {
     if (layout->labelAlignment() & Qt::AlignVCenter) {
@@ -814,13 +761,6 @@ void SkulptureStyle::Private::polishFormLayout(QFormLayout *layout)
             continue;
         }
         int fieldHeight = fieldItem->sizeHint().height();
-        if (runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0)) {
-            // work around KIntNumInput::sizeHint() bug
-            if (fieldItem->widget() && fieldItem->widget()->inherits("KIntNumInput")) {
-                fieldHeight -= 2;
-                fieldItem->widget()->setMaximumHeight(fieldHeight);
-            }
-        }
         /* for large fields, we don't center */
         if (fieldHeight <= 2 * fontHeight(0, label) + addedHeight) {
             if (fieldHeight > labelHeight) {
@@ -834,31 +774,21 @@ void SkulptureStyle::Private::polishFormLayout(QFormLayout *layout)
         if (qobject_cast<QCheckBox *>(label)) {
             label->setMinimumHeight(labelHeight);
         } else {
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 2))
-            if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 2)) {
-                label->setMinimumHeight((labelHeight * 4 + 6) / 7);
-            } else {
-                // QFormLayout determines label size as height * 5 / 4, so revert that
-                label->setMinimumHeight((labelHeight * 4 + 4) / 5);
-            }
-#else
+            // QFormLayout determines label size as height * 7 / 4, so revert that
             label->setMinimumHeight((labelHeight * 4 + 6) / 7);
-#endif
         }
     }
 }
-#endif
+
 
 void SkulptureStyle::Private::polishLayout(QLayout *layout)
 {
     if (forceSpacingAndMargins) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         if (QFormLayout *formLayout = qobject_cast<QFormLayout *>(layout)) {
             if (formLayout->spacing() >= 2) {
                 formLayout->setSpacing(-1);
             }
         } else
-#endif
         if (QGridLayout *gridLayout = qobject_cast<QGridLayout *>(layout)) {
             if (gridLayout->spacing() >= 2) {
                 gridLayout->setSpacing(-1);
@@ -876,11 +806,9 @@ void SkulptureStyle::Private::polishLayout(QLayout *layout)
             layout->setMargin(-1);
         }
     }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
     if (QFormLayout *formLayout = qobject_cast<QFormLayout *>(layout)) {
         polishFormLayout(formLayout);
     }
-#endif
     // recurse into layouts
     for (int i = 0; i < layout->count(); ++i) {
         QLayoutItem *item = layout->itemAt(i);

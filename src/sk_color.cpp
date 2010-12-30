@@ -191,10 +191,8 @@ QPalette SkulptureStyle::standardPalette() const
     palette.setColor(QPalette::Active, QPalette::ButtonText, QColor(0, 0, 0));
     palette.setColor(QPalette::Active, QPalette::Shadow, QColor(0, 0, 0));
     palette.setColor(QPalette::Active, QPalette::BrightText, QColor(240, 240, 240));
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
     palette.setColor(QPalette::Inactive, QPalette::ToolTipBase, QColor(240, 230, 190));
     palette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor(0, 0, 0));
-#endif
 
     computeColorGroups(palette);
     return palette;

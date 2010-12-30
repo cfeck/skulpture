@@ -11,11 +11,6 @@
 #include "sk_factory.h"
 #include <cmath>
 
-// FIXME
-#if (QT_VERSION < QT_VERSION_CHECK(4, 3, 0))
-#define cacheKey serialNumber
-#endif
-
 
 /*-----------------------------------------------------------------------*/
 
@@ -479,12 +474,9 @@ static void paintGrip(QPainter *painter, const QStyleOption *option)
 	painter->setBrush(color);
 	painter->drawEllipse(rect);
 	painter->setBrush(gradient1);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
         // ### merge opacity into color
         painter->setOpacity(opacity);
-#endif
 	painter->drawEllipse(rect);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
         painter->setOpacity(1.0);
 	if (d > 2) {
 		QConicalGradient gradient2(rect.center(), angle);
@@ -516,7 +508,6 @@ static void paintGrip(QPainter *painter, const QStyleOption *option)
 			painter->setOpacity(1.0);
 		}
 	}
-#endif
 	painter->restore();
 }
 

@@ -191,11 +191,7 @@ class LineEditHack : public QLineEdit
 {
     public:
         QRect cursorRectHack() const {
-#if QT_VERSION >= QT_VERSION_CHECK(4, 4, 0)
             return cursorRect();
-#else
-            return inputMethodQuery(Qt::ImMicroFocus).toRect();
-#endif
         }
 };
 
@@ -280,19 +276,11 @@ void paintPanelLineEdit(QPainter *painter, const QStyleOptionFrame *option, cons
 			painter->fillRect(option->rect.adjusted(fw, fw, -fw, -fw), panelGradient);
 		}
                 if (!cursorRect.isEmpty()) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                     QRect cursor = style->subElementRect(QStyle::SE_LineEditContents, option, widget).adjusted(0, 2, 0, -3);
-#else
-                    QRect cursor = option->rect.adjusted(0, fw + 2, 0, -fw - 3);
-#endif
                     if (cursor.height() != option->fontMetrics.height() - 1) {
                         cursor.adjust(0, 1, 0, 0);
                     }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
                     int cursorWidth = style->pixelMetric(QStyle::PM_TextCursorWidth, option, widget);
-#else
-                    int cursorWidth = style->pixelMetric((QStyle::PixelMetric)((int) QStyle::PM_CustomBase + 1), option, widget);
-#endif
                     cursor.setLeft(cursorRect.center().x() + 1 - (cursorWidth >> 1));
                     cursor.setWidth(cursorWidth);
                     cursor.setTop(cursor.top() + ((cursor.height() - option->fontMetrics.height() + 2) >> 1));
@@ -307,11 +295,7 @@ void paintPanelLineEdit(QPainter *painter, const QStyleOptionFrame *option, cons
                 }
         }
 	if (focus && option->state & QStyle::State_KeyboardFocusChange) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
             QColor color = option->palette.color(QPalette::Highlight).darker(120);
-#else
-            QColor color = option->palette.color(QPalette::Highlight).dark(120);
-#endif
 		color.setAlpha(120);
                 QRect r = option->rect.adjusted(fw + 2, fw + 2, -fw - 2, -fw - 2);
                 r.setTop(r.top() + r.height() - 1);
@@ -365,16 +349,12 @@ void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option,
 	painter->fillRect(option->rect, color);
 //	painter->fillRect(option->rect.adjusted(1, 1, -1, -1), color);
 	painter->fillRect(option->rect.adjusted(2, 2, -2, -2), color);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         color = color.darker(120);
-#else
-        color = color.dark(120);
-#endif
 	color.setAlpha(230);
 	painter->fillRect(option->rect.adjusted(0, option->rect.height() - 1, 0, 0), color);
 }
 
-//#if (QT_VERSION >= QT_VERSION_CHECK(4, 1, 0))
+
 QRect subControlRectGroupBox(const QStyleOptionGroupBox *option, QStyle::SubControl subControl, const QWidget *widget, const QStyle *style)
 {
     switch (subControl) {
@@ -394,7 +374,7 @@ QRect subControlRectGroupBox(const QStyleOptionGroupBox *option, QStyle::SubCont
     }
     return ((const QCommonStyle *) style)->QCommonStyle::subControlRect(QStyle::CC_GroupBox, option, subControl, widget);
 }
-//#endif
+
 
 /*-----------------------------------------------------------------------*/
 

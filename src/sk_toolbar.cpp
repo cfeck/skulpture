@@ -162,10 +162,6 @@ static inline bool inVerticalToolBar(const QStyleOption *option, const QWidget *
 
 
 /*-----------------------------------------------------------------------*/
-// FIXME
-#if (QT_VERSION < QT_VERSION_CHECK(4, 3, 0))
-#define HasMenu Menu
-#endif
 
 extern void paintMenuTitle(QPainter *painter, const QStyleOptionToolButton *option, const QWidget *widget, const QStyle *style);
 
@@ -235,13 +231,6 @@ void paintToolButton(QPainter *painter, const QStyleOptionToolButton *option, co
 				if (!(state & QStyle::State_AutoRaise) || (state & QStyle::State_MouseOver)) {
 					state |= QStyle::State_Raised;
 				}
-#if (QT_VERSION < QT_VERSION_CHECK(4, 5, 0))
-                                if (runtimeQtVersion() < QT_VERSION_CHECK(4, 5, 0)) {
-                                    if (option->activeSubControls & QStyle::SC_ToolButtonMenu) {
-                                        state |= QStyle::State_Sunken;
-                                    }
-                                } else
-#endif
                                 {
                                     if (option->state & QStyle::State_Sunken) {
                                         state |= QStyle::State_Sunken;

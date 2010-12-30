@@ -32,10 +32,8 @@
 #include <QtGui/QStatusBar>
 #include <QtGui/QAbstractScrollArea>
 #include <QtGui/QScrollArea>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 #include <QtGui/QMdiArea>
 #include <QtGui/QMdiSubWindow>
-#endif
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QWorkspace>
@@ -50,10 +48,8 @@
 #include <QtGui/QDockWidget>
 #include <QtGui/QToolButton>
 #include <QtGui/QTextEdit>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QFormLayout>
-#endif
 #include <QtGui/QStackedLayout>
 #include <QtGui/QGridLayout>
 #include <QtGui/QBoxLayout>
@@ -119,7 +115,6 @@ void SkulptureStyle::polish(QApplication *application)
 {
 //	ParentStyle::polish(application);
 //	return;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
     QString recursionCheck = QLatin1String("\n/* -skulpture-recursion-check- */\n");
     if (!d->styleSheetFileName.isEmpty()) {
         QString oldStyle = application->styleSheet();
@@ -132,7 +127,6 @@ void SkulptureStyle::polish(QApplication *application)
             }
         }
     }
-#endif
 	ParentStyle::polish(application);
 	application->installEventFilter(d->shortcut_handler);
 #if 0
@@ -196,7 +190,6 @@ static void polishSidebarView(QAbstractItemView *view, SidebarViewMode viewMode)
 
 /*-----------------------------------------------------------------------*/
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 static WidgetShadow *findShadow(QWidget *widget)
 {
 	QWidget *parent = widget->parentWidget();
@@ -211,7 +204,7 @@ static WidgetShadow *findShadow(QWidget *widget)
 	}
 	return 0;
 }
-#endif
+
 
 void SkulptureStyle::polish(QWidget *widget)
 {
@@ -224,7 +217,6 @@ void SkulptureStyle::polish(QWidget *widget)
 	polish(palette);
 	widget->setPalette(palette);
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 	if (QMdiArea *area = qobject_cast<QMdiArea *>(widget)) {
 		area->installEventFilter(d);
 	}
@@ -240,7 +232,6 @@ void SkulptureStyle::polish(QWidget *widget)
 			}
 		}
 	}
-#endif
 #if 1
 	if (QLCDNumber *lcd = qobject_cast<QLCDNumber *>(widget)) {
 		QPalette palette;
@@ -338,7 +329,6 @@ void SkulptureStyle::polish(QWidget *widget)
                     polishSidebarView(static_cast<QAbstractItemView *>(widget), d->transparentPlacesPanel ? TransparentSidebar : DefaultSidebar);
 		}
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 		if (widget->inherits("QPlainTextEdit")) {
 			QPlainTextEdit *edit = static_cast<QPlainTextEdit *>(widget);
 		//	QPalette palette = edit->palette();
@@ -350,19 +340,8 @@ void SkulptureStyle::polish(QWidget *widget)
                         edit->installEventFilter(d);
                         widget->setAttribute(Qt::WA_Hover, true);
 		}
-#endif
 #if 1
 		if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-			if (!qstrcmp(widget->metaObject()->className(), "SampleEdit")) {
-				QWidget *bg = new QWidget(widget);
-				bg->lower();
-				bg->setObjectName(QLatin1String("sample_background"));
-				bg->setGeometry(2, 2, widget->width() - 4, widget->height() - 4);
-				bg->setAutoFillBackground(true);
-				bg->show();
-			} else
-#endif
                         {
 				d->mapper.setMapping(edit, edit);
 				connect(edit, SIGNAL(textChanged()), &d->mapper, SLOT(map()));
@@ -506,14 +485,10 @@ void SkulptureStyle::polish(QWidget *widget)
 #endif
 	if (QAbstractScrollArea *area = qobject_cast<QAbstractScrollArea *>(widget)) {
 		if (QAbstractItemView *iv = qobject_cast<QAbstractItemView *>(widget)) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 			// ### Qt issue
 		//	iv->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 		//	iv->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 		//	QApplication::setWheelScrollLines(64);
-			iv = iv;
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 			iv->viewport()->setAttribute(Qt::WA_Hover);
                         if (QTreeView *tree = qobject_cast<QTreeView *>(widget)) {
                             iv->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -529,7 +504,6 @@ void SkulptureStyle::polish(QWidget *widget)
                             iv->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
                             iv->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
                         }
-#endif
 
 #if 1
 			if (QHeaderView *header = qobject_cast<QHeaderView *>(widget)) {
@@ -617,9 +591,7 @@ void SkulptureStyle::polish(QWidget *widget)
         if (QLayout *layout = widget->layout()) {
             // explicitely check public layout classes, QMainWindowLayout doesn't work here
             if (qobject_cast<QBoxLayout *>(layout)
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
              || qobject_cast<QFormLayout *>(layout)
-#endif
              || qobject_cast<QGridLayout *>(layout)
              || qobject_cast<QStackedLayout *>(layout)) {
                 d->polishLayout(layout);
@@ -629,7 +601,7 @@ void SkulptureStyle::polish(QWidget *widget)
         || !qstrcmp(widget->metaObject()->className(), "InformationPanel")) {
             widget->installEventFilter(d);
         }
-#if 0//(QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
+#if 0
         if (widget->inherits("KTabWidget") && widget->property("closeButtonEnabled").toBool()) {
             widget->setProperty("tabsClosable", true);
             widget->setProperty("closeButtonEnabled", false);
@@ -670,7 +642,6 @@ void SkulptureStyle::unpolish(QWidget *widget)
 	 || qobject_cast<QToolButton *>(widget)) {
 		widget->setAttribute(Qt::WA_Hover, false);
 	}
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 	if (qobject_cast<QMdiArea *>(widget)) {
 		widget->removeEventFilter(d);
 	}
@@ -683,7 +654,6 @@ void SkulptureStyle::unpolish(QWidget *widget)
 			shadow->deleteLater();
 		}
 	}
-#endif
 #if 1
 	if (QDialog *dialog = qobject_cast<QDialog *>(widget)) {
 		dialog->removeEventFilter(d);
@@ -751,29 +721,16 @@ void SkulptureStyle::unpolish(QWidget *widget)
 		widget->removeEventFilter(d);
 	}
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 	if (widget->inherits("QPlainTextEdit")) {
 		QPlainTextEdit *edit = static_cast<QPlainTextEdit *>(widget);
 		edit->viewport()->removeEventFilter(d);
                 edit->removeEventFilter(d);
         }
-#endif
         if (qobject_cast<QScrollBar *>(widget)) {
             widget->removeEventFilter(d);
             widget->setAttribute(Qt::WA_OpaquePaintEvent, true);
         }
 	if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-		if (!qstrcmp(widget->metaObject()->className(), "SampleEdit")) {
-			QList<QObject *> children = widget->children();
-			Q_FOREACH (QObject *child, children) {
-				if (child->objectName() == QLatin1String("sample_background")) {
-					child->setParent(0);
-					child->deleteLater();
-				}
-			}
-		} else
-#endif
                 {
 			d->mapper.removeMappings(edit);
 		}
@@ -800,11 +757,7 @@ void SkulptureStyle::unpolish(QWidget *widget)
             widget->setCursor(Qt::IBeamCursor);
         }
         if (!d->postEventWidgets.isEmpty()) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
             d->postEventWidgets.removeOne(widget);
-#else
-            d->postEventWidgets.removeAll(widget);
-#endif
         }
         if ((QWidget *) d->oldEdit == widget) {
             d->oldEdit = 0;
@@ -831,11 +784,9 @@ void SkulptureStyle::Private::processPostEventWidgets()
         if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
             handleCursor(edit);
         }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         else if (QPlainTextEdit *edit = qobject_cast<QPlainTextEdit *>(widget)) {
             handleCursor(edit);
         }
-#endif
     }
 }
 
@@ -843,9 +794,7 @@ void SkulptureStyle::Private::processPostEventWidgets()
 void SkulptureStyle::Private::addPostEventWidget(QWidget *widget)
 {
     if (qobject_cast<QTextEdit *>(widget)
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         || qobject_cast<QPlainTextEdit *>(widget)
-#endif
     ) {
         if (!postEventWidgets.contains(widget)) {
             bool signal = postEventWidgets.isEmpty();
@@ -863,11 +812,9 @@ static void visualizeLayoutSpacing(QLayout *layout, QPainter *painter)
     layout->activate();
     QColor color;
     int spacing = -1;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
     if (QFormLayout *formLayout = qobject_cast<QFormLayout *>(layout)) {
         spacing = formLayout->spacing();
     } else
-#endif
     if (QGridLayout *gridLayout = qobject_cast<QGridLayout *>(layout)) {
         spacing = gridLayout->spacing();
     } else if (QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(layout)) {
@@ -913,14 +860,6 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
             qDebug() << "handling" << event->type() << "for object" << widget->objectName() << "which is a" << widget->metaObject()->className() << " which is a" << widget->metaObject()->superClass()->className();
         }
 #endif
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-        if (QMenu *menu = qobject_cast<QMenu *>(widget)) {
-            if (runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0)) {
-                return menuEventFilter(menu, event);
-            }
-        }
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 	if (qobject_cast<QMdiSubWindow *>(widget)) {
 		WidgetShadow *shadow = findShadow(widget);
 		switch (event->type()) {
@@ -957,14 +896,9 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 				break;
 		}
 	}
-#endif
         if (event->type() == QEvent::Hide || event->type() == QEvent::Destroy) {
             if (!postEventWidgets.isEmpty()) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
                 postEventWidgets.removeOne(widget);
-#else
-                postEventWidgets.removeAll(widget);
-#endif
             }
             if ((QWidget *) oldEdit == widget) {
                 oldEdit = 0;
@@ -983,29 +917,12 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 #if 1 // highlight current line in QTextEdit / QPlainTextEdit
 			if (widget->objectName() == QLatin1String("qt_scrollarea_viewport")) {
 				if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget->parent())) {
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-					if (!qstrcmp(edit->metaObject()->className(), "SampleEdit")) {
-						QList<QObject *> children = edit->children();
-						Q_FOREACH (QObject *child, children) {
-							if (child->objectName() == QLatin1String("sample_background")) {
-								QWidget *bg = qobject_cast<QWidget *>(child);
-								if (bg) {
-									QPalette palette = edit->palette();
-									palette.setColor(QPalette::Window, palette.color(QPalette::Base));
-									bg->setPalette(palette);
-								}
-							}
-						}
-					}
-#endif
 				//	updateTextEditMargins(edit);
 					paintCursorLine(edit);
 				}
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 				else if (widget->parent()->inherits("QPlainTextEdit")) {
 					paintCursorLine(static_cast<QPlainTextEdit *>(widget->parent()));
 				}
-#endif
 			}
 #endif
 #if 1
@@ -1022,19 +939,15 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
                                     painter.fillRect(widget->rect(), QColor(0, 200, 255, 200));
                                 }
                             }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                             if (!widget->styleSheet().isEmpty()) {
                                 QPainter painter(widget);
                                 painter.fillRect(widget->rect(), QColor(255, 0, 255, 100));
                             }
-#endif
                             if (QLayout *layout = widget->layout()) {
                                 if (!(qobject_cast<QToolBar *>(widget))) {
                                     // explicitely check public layout classes, QMainWindowLayout doesn't work here
                                     if (qobject_cast<QBoxLayout *>(layout)
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
                                     || qobject_cast<QFormLayout *>(layout)
-#endif
                                     || qobject_cast<QGridLayout *>(layout)
                                     || qobject_cast<QStackedLayout *>(layout)) {
                                         QPainter painter(widget);
@@ -1091,7 +1004,6 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
                             paintThinFrame(&painter, widget->rect().adjusted(0, 0, 0, 0), widget->palette(), 60, -20);
                             paintThinFrame(&painter, widget->rect().adjusted(1, 1, -1, -1), widget->palette(), -20, 60);
                         }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 			if (!qstrcmp(widget->metaObject()->className(), "KLineEditButton")) {
 				QPainter painter(widget);
 				QStyleOption option;
@@ -1116,7 +1028,6 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 				return true;
 			}
 			break;
-#endif
                 case QEvent::MouseMove:
                     if (QLineEdit *lineEdit = qobject_cast<QLineEdit *>(watched)) {
                         lineEditMouseMoved(lineEdit, static_cast<QMouseEvent *>(event));
@@ -1132,31 +1043,16 @@ bool SkulptureStyle::Private::eventFilter(QObject *watched, QEvent *event)
 		case QEvent::Move:
 		case QEvent::Resize:
 			if (QTextEdit *edit = qobject_cast<QTextEdit *>(widget)) {
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-				if (!qstrcmp(widget->metaObject()->className(), "SampleEdit")) {
-					QList<QObject *> children = widget->children();
-					Q_FOREACH (QObject *child, children) {
-						if (child->objectName() == QLatin1String("sample_background")) {
-							QWidget *bg = qobject_cast<QWidget *>(child);
-							if (bg) {
-								bg->setGeometry(2, 2, widget->width() - 4, widget->height() - 4);
-							}
-						}
-					}
-				} else
-#endif
                                 {
 					textEditSourceChanged(edit);
 				}
 			}
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 			else if (qobject_cast<QMdiArea *>(widget)) {
 				QList<WidgetShadow *> shadows = widget->findChildren<WidgetShadow *>();
 				Q_FOREACH (WidgetShadow *shadow, shadows) {
 					shadow->updateGeometry();
 				}
 			}
-#endif
 			if (qobject_cast<QAbstractScrollArea *>(widget)
 			 || widget->inherits("Q3ScrollView")
 #if 1

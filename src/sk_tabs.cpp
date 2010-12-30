@@ -68,11 +68,7 @@ class Tab
 	public:
 		TabState state;
 		TabAnim anim;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 		QStyleOptionTabV3 oldOption;
-#else
-		QStyleOptionTabV2 oldOption;
-#endif
 };
 
 
@@ -114,13 +110,11 @@ const TabBarState *SkulpturePrivate::tabBarState(const QWidget *widget)
 static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *option, QTabBar::Shape shape)
 {
     QRect rect = r;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
     if (!isVertical(shape) && option->version >= QStyleOptionTabBarBaseV2::Version) {
         if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
             rect.adjust(-10, 0, 10, 0);
         }
     }
-#endif
 	if (true /*option->state & QStyle::State_Enabled*/) {
 		QLinearGradient tabGradient(rect.topLeft(), isVertical(shape) ? rect.topRight() : rect.bottomLeft());
 		tabGradient.setColorAt(0.0, option->palette.color(QPalette::Window).darker(118));
@@ -136,7 +130,6 @@ static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *
 
 void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
     if (option->version >= QStyleOptionTabBarBaseV2::Version) {
         if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
             QRect r = option->rect;
@@ -155,17 +148,10 @@ void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *optio
             return;
         }
     }
-#else
-    Q_UNUSED(widget);
-#endif
 	// ### remove clipping
 	painter->save();
 	QRect r = option->rect;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 	r = r.united(option->tabBarRect);
-#else
-        r = r.unite(option->tabBarRect);
-#endif
 	QRegion region(r);
 	region -= option->tabBarRect;
 	painter->setClipRegion(region);
@@ -244,13 +230,11 @@ void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const
 	if (widget && widget->parentWidget()) {
 		if (!qstrcmp(widget->metaObject()->className(), "KTabBar") && !qstrcmp(widget->parentWidget()->metaObject()->className(), "KonqFrameTabs")) {
 			konq = true;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
                         if (option->version >= QStyleOptionTabV3::Version) {
                             if (((const QStyleOptionTabV3 *) option)->documentMode) {
                                 konq = false;
                             }
                         }
-#endif
 		}
 	}
 	if (konq || (widget && !(qobject_cast<const QTabWidget *>(widget->parentWidget())))) {
@@ -440,7 +424,7 @@ void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const
 	}
 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
+
 void paintIndicatorTabClose(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style)
 {
     int offset = 0;
@@ -493,7 +477,7 @@ void paintIndicatorTabClose(QPainter *painter, const QStyleOption *option, const
     painter->drawPixmap(r, style->standardIcon(QStyle::SP_TitleBarCloseButton, option, widget).pixmap(10, 10, iconMode));
     painter->restore();
 }
-#endif
+
 
 void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style)
 {
@@ -513,11 +497,7 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 //	font.setBold(true);
 //	painter->setFont(font);
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
     QStyleOptionTabV3 opt;
-#else
-    QStyleOptionTabV2 opt;
-#endif
 
 	int offset = TAB_SHIFT;
 	if (option->state & QStyle::State_Selected || (option->state & QStyle::State_MouseOver && option->state & QStyle::State_Enabled)) {

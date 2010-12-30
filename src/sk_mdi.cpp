@@ -5,9 +5,7 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 #include <QtGui/QMdiSubWindow>
-#endif
 #include <QtCore/QSettings>
 #include <cmath>
 
@@ -73,19 +71,15 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 	QColor textColor;
 
 	painter->save();
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
         qreal opacity = painter->opacity();
-#endif
 
 	QPalette palette = option->palette;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         if (qobject_cast<const QMdiSubWindow *>(widget)) {
 		if (widget->objectName() != QLatin1String("SkulpturePreviewWindow")) {
 			getTitleBarPalette(palette);
 		}
 	}
-#endif
 	if (option->state & QStyle::State_Active) {
 		barColor = palette.color(QPalette::Highlight);
 		textColor = palette.color(QPalette::HighlightedText);
@@ -98,13 +92,8 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 //	barGradient.setColorAt(0.0, option->palette.color(QPalette::Window));
 //	barGradient.setColorAt(0.3, barColor);
 //	barGradient.setColorAt(0.7, barColor);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         barGradient.setColorAt(0.0, barColor.darker(105));
         barGradient.setColorAt(1.0, barColor.lighter(120));
-#else
-        barGradient.setColorAt(0.0, barColor.dark(105));
-        barGradient.setColorAt(1.0, barColor.light(120));
-#endif
 //	barGradient.setColorAt(1.0, option->palette.color(QPalette::Window));
 //	painter->fillRect(option->rect.adjusted(-1, -1, 1, -2), barGradient);
 //	painter->fillRect(option->rect.adjusted(-1, -1, 1, -2), barColor);
@@ -123,9 +112,7 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 	//	buttons.subControls &= ~QStyle::SC_TitleBarLabel;
 		buttons.subControls = QStyle::SC_TitleBarSysMenu;
 		buttons.rect.adjust(3, -2, -4, -1);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                 painter->setOpacity(option->state & QStyle::State_Active ? opacity : 0.7 * opacity);
-#endif
 		((QCommonStyle *) style)->QCommonStyle::drawComplexControl(QStyle::CC_TitleBar, &buttons, painter, widget);
 		buttons = *option;
 #if 0
@@ -149,9 +136,7 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 			}
 		}
 #endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                 painter->setOpacity(opacity);
-#endif
 #if 0
 		QRect buttonRect = option->rect.adjusted(300, 1, -90, -6);
 		paintThinFrame(painter, buttonRect, option->palette, -180, 40);
@@ -216,7 +201,6 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 
 	if (option->subControls & QStyle::SC_TitleBarLabel) {
 		QRect labelRect;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 		if (qobject_cast<const QMdiSubWindow *>(widget)) {
 			QFont font = painter->font();
 			font.setBold(true);
@@ -228,19 +212,14 @@ void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const 
 		//	font.setPointSizeF(10);
 			painter->setFont(font);
 		} else
-#endif
                 {
 			labelRect = style->subControlRect(QStyle::CC_TitleBar, option, QStyle::SC_TitleBarLabel, widget);
 		}
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
                 painter->setOpacity(opacity);
-#endif
 		painter->setPen(QColor(0, 0, 0, 25));
                 style->drawItemText(painter, labelRect.adjusted(1, 1, 1, 1), Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, option->palette, true, option->text, QPalette::NoRole);
 		//painter->drawText(labelRect.adjusted(1, 1, 1, 1), Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, option->text);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 		painter->setOpacity(option->state & QStyle::State_Active ? opacity : 0.7 * opacity);
-#endif
 		painter->setPen(textColor);
                 style->drawItemText(painter, labelRect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, option->palette, true, option->text, QPalette::NoRole);
                 //painter->drawText(labelRect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextSingleLine, option->text);

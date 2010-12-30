@@ -6,9 +6,7 @@
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
 #include <QtGui/QTextEdit>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 #include <QtGui/QPlainTextEdit>
-#endif
 #include <QtGui/QTextBrowser>
 #include <QtGui/QTextFrame>
 #include <QtGui/QTextCursor>
@@ -61,18 +59,14 @@ void SkulptureStyle::Private::paintCursorLine(QAbstractScrollArea *edit)
         color.setAlpha(40);
         painter.fillRect(cursorLine, color);
         if (edit->window()->testAttribute(Qt::WA_KeyboardFocusChange)) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
             color = palette.color(QPalette::Highlight).darker(120);
-#else
-            color = palette.color(QPalette::Highlight).dark(120);
-#endif
             color.setAlpha(120);
             painter.fillRect(cursorLine.adjusted(0, cursorLine.height() - 3, 0, -2), color);
         }
     }
 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
+
 void SkulptureStyle::Private::handleCursor(QPlainTextEdit *edit)
 {
     if (edit->hasFocus() && !edit->isReadOnly()) {
@@ -89,23 +83,17 @@ void SkulptureStyle::Private::handleCursor(QPlainTextEdit *edit)
         }
     }
 }
-#endif
+
 
 void SkulptureStyle::Private::handleCursor(QTextEdit *edit)
 {
     if (edit->hasFocus() && !edit->isReadOnly()) {
         QStyleOption option;
         option.initFrom(edit);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
         int cursorWidth = q->SkulptureStyle::pixelMetric(PM_TextCursorWidth, &option, edit);
-#else
-        int cursorWidth = q->SkulptureStyle::pixelMetric((QStyle::PixelMetric)((int) PM_CustomBase + 1), &option, edit);
-#endif
         if (edit->cursorWidth() != cursorWidth) {
             edit->setCursorWidth(cursorWidth);
         }
-#endif
         updateCursorLine(edit, edit->cursorRect());
     } else {
         if (edit == oldEdit) {
@@ -151,12 +139,10 @@ void SkulptureStyle::Private::updateTextEditMargins(QTextEdit *edit)
 		disconnect(edit, SIGNAL(textChanged()), &mapper, SLOT(map()));
 		doc->blockSignals(true);
 		format.setMargin(margin);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                 if (margin < 12) {
                     format.setTopMargin(widgetSize - ((textShift + 1) >> 1));
                     format.setBottomMargin(widgetSize + ((textShift + 1) >> 1));
                 }
-#endif
                 root->setFrameFormat(format);
 	//	edit->insertPlainText(QLatin1String(""));
 	//	edit->update();
@@ -198,15 +184,9 @@ void SkulptureStyle::drawItemText(QPainter * painter, const QRect &rectangle, in
 
     if (!(alignment & (Qt::AlignTop | Qt::AlignBottom))) {
         textShift = d->verticalTextShift(painter->fontMetrics());
-        if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 1)) {
             if (textShift & 1 && ((painter->fontMetrics().height() ^ rectangle.height()) & 1)) {
                 textShift -= 1;
             }
-        } else {
-            if (textShift & 1 && !(rectangle.height() & 1)) {
-                textShift += 1;
-            }
-        }
     }
     ParentStyle::drawItemText(painter, textShift == 0 || textShift == -1 ? rectangle : rectangle.adjusted(0, (-textShift) >> 1, 0, (-textShift) >> 1), alignment, palette, enabled, text, textRole);
 }

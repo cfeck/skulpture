@@ -21,11 +21,7 @@ void paintSliderGroove(QPainter *painter, QRect &rect, const QStyleOptionSlider 
 	}
 	QColor color = option->palette.color(QPalette::Window);
 	if (option->state & QStyle::State_Enabled) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
             color = color.darker(120);
-#else
-            color = color.dark(120);
-#endif
 		painter->fillRect(rect, color);
 		paintThinFrame(painter, rect.adjusted(-1, -1, 1, 1), option->palette, -30, -90);
 	} else {
@@ -44,17 +40,9 @@ void paintSliderHandle(QPainter *painter, const QRect &rect, const QStyleOptionS
 	QColor color = option->palette.color(QPalette::Button);
 	if (option->state & QStyle::State_Enabled) {
 		if (option->state & QStyle::State_Sunken) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                     color = color.lighter(102);
-#else
-                    color = color.light(102);
-#endif
                 } else if (option->state & QStyle::State_MouseOver) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                     color = color.lighter(104);
-#else
-                    color = color.light(104);
-#endif
 		}
 	} else {
 		color = option->palette.color(QPalette::Window);

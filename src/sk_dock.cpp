@@ -20,11 +20,7 @@ void paintFrameDockWidget(QPainter *painter, const QStyleOptionFrame *option)
 void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *option, const QWidget *widget, const QStyle *style)
 {
 	const QDockWidget *dock = qobject_cast<const QDockWidget *>(widget);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
     const bool vertical = dock && (dock->features() & QDockWidget::DockWidgetVerticalTitleBar);
-#else
-    const bool vertical = false;
-#endif
     const bool floating = dock && dock->isFloating();
 	QRect r = option->rect;
 	if (floating) {
@@ -61,12 +57,7 @@ void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *optio
 	font.setPointSizeF(font.pointSizeF() / 1.19);
 	painter->save();
 	painter->setFont(font);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 	r = style->subElementRect(QStyle::SE_DockWidgetTitleBarText, option, widget);
-#else
-        // FIXME
-        r = option->rect;
-#endif
 	// ### fix for Plastique centering
 	if (vertical && option->rect.height() & 1) {
 		if (!floating) {
@@ -103,7 +94,7 @@ void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *optio
 	painter->restore();
 }
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+
 QRect subElementRectDockWidget(QStyle::SubElement element, const QStyleOptionDockWidget *option, const QWidget *widget, const QStyle *style)
 {
     switch (element) {
@@ -143,5 +134,5 @@ QRect subElementRectDockWidget(QStyle::SubElement element, const QStyleOptionDoc
         return option->rect;
     }
 }
-#endif
+
 

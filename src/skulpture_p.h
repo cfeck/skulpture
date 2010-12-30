@@ -59,13 +59,6 @@ class ShortcutHandler : public QObject
 
 /*-----------------------------------------------------------------------*/
 
-#if (QT_VERSION < 0x040300)
-#define QT_VERSION_CHECK(maj, min, rel) ((maj << 16) + (min << 8) + (rel))
-#endif
-
-
-/*-----------------------------------------------------------------------*/
-
 enum ArrowPlacementMode
 {
     NoArrowsMode,   // (*)
@@ -90,9 +83,7 @@ class QTextEdit;
 class QPlainTextEdit;
 class QAbstractScrollArea;
 class QLineEdit;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 class QFormLayout;
-#endif
 class QMenu;
 
 class SkulptureStyle::Private : public QObject
@@ -183,25 +174,8 @@ class SkulptureStyle::Private : public QObject
 
 		QSignalMapper mapper;
 
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 		struct DrawElementEntry draw_primitive_entry[QStyle::PE_PanelMenu + 1];
-#elif (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
-		struct DrawElementEntry draw_primitive_entry[QStyle::PE_PanelStatusBar + 1];
-#elif (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
-		struct DrawElementEntry draw_primitive_entry[QStyle::PE_IndicatorColumnViewArrow + 1];
-#elif (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
-		struct DrawElementEntry draw_primitive_entry[QStyle::PE_Widget + 1];
-#else
-                struct DrawElementEntry draw_primitive_entry[QStyle::PE_IndicatorTabTear + 1];
-#endif
-
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 		struct DrawElementEntry draw_element_entry[QStyle::CE_ItemViewItem + 1];
-#elif (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
-		struct DrawElementEntry draw_element_entry[QStyle::CE_ColumnViewGrip + 1];
-#else
-		struct DrawElementEntry draw_element_entry[QStyle::CE_ToolBar + 1];
-#endif
 
 		ShortcutHandler *shortcut_handler;
 
@@ -222,9 +196,7 @@ class SkulptureStyle::Private : public QObject
                 int verticalTextShift(const QFontMetrics &fontMetrics);
                 int textLineHeight(const QStyleOption *option, const QWidget *widget);
                 void polishLayout(QLayout *layout);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
                 void polishFormLayout(QFormLayout *layout);
-#endif
 
                 QList<QPointer<QWidget> > postEventWidgets;
                 void addPostEventWidget(QWidget *widget);
@@ -253,7 +225,6 @@ class SkulptureStyle::Private : public QObject
                 };
 
                 QHash<QMenu *, MenuInfo> menuHash;
-                bool menuEventFilter(QMenu *menu, QEvent *event);
 
 	protected:
 		void timerEvent(QTimerEvent *event);
@@ -355,15 +326,6 @@ enum RecessedFrame { RF_Small, RF_Large, RF_None };
 
 void paintRecessedFrame(QPainter *painter, const QRect &rect, const QPalette &palette, enum RecessedFrame rf, QPalette::ColorRole bgrole = QPalette::Window);
 void paintRecessedFrameShadow(QPainter *painter, const QRect &rect, enum RecessedFrame rf);
-
-int runtimeQtVersion();
-
-/*-----------------------------------------------------------------------*/
-// FIXME
-#if (QT_VERSION < QT_VERSION_CHECK(4, 3, 0))
-#define lighter light
-#define darker dark
-#endif
 
 
 /*-----------------------------------------------------------------------*/

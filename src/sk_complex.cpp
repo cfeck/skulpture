@@ -42,13 +42,9 @@ QRect SkulptureStyle::subControlRect(ComplexControl control, const QStyleOptionC
         case CC_Q3ListView: break;
         SC_CASE(ToolButton, ToolButton);
         case CC_Dial: break;
-//#if (QT_VERSION >= QT_VERSION_CHECK(4, 1, 0))
         SC_CASE(GroupBox, GroupBox);
-//#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         case CC_MdiControls:
             break;
-#endif
         case CC_CustomBase: // avoid warning
             break;
     }
@@ -128,14 +124,10 @@ void SkulptureStyle::drawComplexControl(ComplexControl control, const QStyleOpti
         CC_CASE(TitleBar, TitleBar);
         CC_CASE(Q3ListView, Q3ListView);
         CC_CASE(Dial, Slider);
-//#if (QT_VERSION >= QT_VERSION_CHECK(4, 1, 0))
         case CC_GroupBox:
             break;
-//#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
         case CC_MdiControls:
             break;
-#endif
         case CC_CustomBase: // avoid warning
             break;
     }

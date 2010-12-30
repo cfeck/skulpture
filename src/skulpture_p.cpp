@@ -7,15 +7,9 @@
 #include <QtCore/QSettings>
 #include <QtCore/QLocale>
 #include <QtGui/QSlider>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 #include <QtGui/QDialogButtonBox>
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 #include <QtGui/QWizard>
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 #include <QtGui/QFormLayout>
-#endif
 
 
 /*-----------------------------------------------------------------------*/
@@ -75,11 +69,7 @@ static const struct StyleSetting styleHintSettings[] =
 //    { "MDI/Workspace/FillSpaceOnMaximize", QStyle::SH_Workspace_FillSpaceOnMaximize, StyleSetting::Parent, 0 },
 //    { "ComboBox/Popup", QStyle::SH_ComboBox_Popup, StyleSetting::Parent, 0 },
 ///    { "MDI/TitleBar/NoBorder", QStyle::SH_TitleBar_NoBorder, StyleSetting::Bool, 0 },
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 ///    { "Slider/StopMouseOverSlider", QStyle::SH_Slider_StopMouseOverSlider, StyleSetting::Bool, 1 },
-#else
-///    { "Slider/StopMouseOverSlider", QStyle::SH_ScrollBar_StopMouseOverSlider, StyleSetting::Bool, 1 },
-#endif
 //    { "General/BlinkCursorWhenTextSelected", QStyle::SH_BlinkCursorWhenTextSelected, StyleSetting::Parent, 0 },
 //    { "General/FullWidthSelection", QStyle::SH_RichText_FullWidthSelection, StyleSetting::Bool, 1 },
 //    { "Menu/Scrollable", QStyle::SH_Menu_Scrollable, StyleSetting::Parent, 0 },
@@ -117,16 +107,11 @@ static const struct StyleSetting styleHintSettings[] =
 // ### from KDE { "ItemView/ActivateItemOnSingleClick", QStyle::SH_ItemView_ActivateItemOnSingleClick, StyleSetting::Bool, 1 },
 //    { "ScrollBar/ContextMenu", QStyle::SH_ScrollBar_ContextMenu, StyleSetting::Parent, 0 },
 //    { "ScrollBar/RollBetweenButtons", QStyle::SH_ScrollBar_RollBetweenButtons, StyleSetting::Parent, 0 },
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 //    { "Slider/AbsoluteSetButtons", QStyle::SH_Slider_AbsoluteSetButtons, StyleSetting::Parent, 0 },
 //    { "Slider/PageSetButtons", QStyle::SH_Slider_PageSetButtons, StyleSetting::Parent, 0 },
 //    { "Menu/KeyboardSearch", QStyle::SH_Menu_KeyboardSearch, StyleSetting::Parent, 0 },
 //    { "TabWidget/ElideMode", QStyle::SH_TabBar_ElideMode, StyleSetting::Parent, 0 },
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 //    { "Dialog/ButtonLayout", QStyle::SH_DialogButtonLayout, StyleSetting::Value, QDialogButtonBox::KdeLayout },
-#else
-    { "Dialog/ButtonLayout", QStyle::SH_DialogButtonLayout, StyleSetting::Value, QDialogButtonBox::KdeLayout },
-#endif
 //    { "ComboBox/PopupFrameStyle", QStyle::SH_ComboBox_PopupFrameStyle, StyleSetting::Parent, 0 },
     { "MessageBox/AllowTextInteraction", QStyle::SH_MessageBox_TextInteractionFlags, StyleSetting::Bool, 1 },
 // ### from KDE { "Dialog/ButtonsHaveIcons", QStyle::SH_DialogButtonBox_ButtonsHaveIcons, StyleSetting::Bool, 0 },
@@ -134,16 +119,12 @@ static const struct StyleSetting styleHintSettings[] =
     { "MessageBox/CenterButtons", QStyle::SH_MessageBox_CenterButtons, StyleSetting::Bool, 0 },
 //    { "Menu/SelectionWrap", QStyle::SH_Menu_SelectionWrap, StyleSetting::Parent, 0 },
 //    { "ItemView/MovementWithoutUpdatingSelection", QStyle::SH_ItemView_MovementWithoutUpdatingSelection, StyleSetting::Parent, 0 },
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 // ### dynamic { "General/ToolTipMask", QStyle::SH_ToolTip_Mask, StyleSetting::Parent, 0 },
 //    { "General/FocusFrameAboveWidget", QStyle::SH_FocusFrame_AboveWidget, StyleSetting::Parent, 0 },
 //    { "General/FocusIndicatorTextCharFormat", QStyle::SH_TextControl_FocusIndicatorTextCharFormat, StyleSetting::Parent, 0 },
 //    { "Dialog/WizardStyle", QStyle::SH_WizardStyle, StyleSetting::Value, QWizard::ModernStyle },
     { "ItemView/ArrowKeysNavigateIntoChildren", QStyle::SH_ItemView_ArrowKeysNavigateIntoChildren, StyleSetting::Bool, 1 },
 // ### dynamic { "General/MenuMask", QStyle::SH_Menu_Mask, StyleSetting::Parent, 0 },
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 //    { "Menu/FlashTriggeredItem", QStyle::SH_Menu_FlashTriggeredItem, StyleSetting::Parent, 0 },
 //    { "Menu/FadeOutOnHide", QStyle::SH_Menu_FadeOutOnHide, StyleSetting::Parent, 0 },
 //    { "SpinBox/ClickAutoRepeatThreshold", QStyle::SH_SpinBox_ClickAutoRepeatThreshold, StyleSetting::Parent, 0 },
@@ -154,12 +135,9 @@ static const struct StyleSetting styleHintSettings[] =
     { "FormLayout/FieldGrowthPolicy", QStyle::SH_FormLayoutFieldGrowthPolicy, StyleSetting::Value, QFormLayout::ExpandingFieldsGrow },
 //    { "FormLayout/FormAlignment", QStyle::SH_FormLayoutFormAlignment, StyleSetting::Alignment, Qt::AlignLeft | Qt::AlignTop },
     { "FormLayout/LabelAlignment", QStyle::SH_FormLayoutLabelAlignment, StyleSetting::Alignment, Qt::AlignRight | Qt::AlignTop },
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 //    { "ItemView/DrawDelegateFrame", QStyle::SH_, StyleSetting::Parent, 0 },
 //    { "TabWidget/CloseButtonPosition", QStyle::SH_TabBar_CloseButtonPosition, StyleSetting::Parent, 0 },
 //    { "DockWidget/ButtonsHaveFrame", QStyle::SH_DockWidget_ButtonsHaveFrame, StyleSetting::Parent, 0 },
-#endif
     { 0, -1, 0, 0 }
 };
 
@@ -181,11 +159,7 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
             case QStyle::SH_TabBar_Alignment: {
                 return d->centerTabs ? Qt::AlignHCenter : Qt::AlignLeft;
             }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
             case QStyle::SH_Slider_StopMouseOverSlider: {
-#else
-            case QStyle::SH_ScrollBar_StopMouseOverSlider: {
-#endif
                 // this works around a bug with Qt 4.4.2
                 return qobject_cast<const QSlider *>(widget) != 0;
             }
@@ -196,12 +170,10 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
                 // use platform setting
                 break;
             }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
             case QStyle::SH_DialogButtonBox_ButtonsHaveIcons: {
                 // ### use KDE setting
                 return 0;
             }
-#endif
 #if 1
             case QStyle::SH_GroupBox_TextLabelColor: {
                 QPalette palette;
@@ -220,11 +192,7 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
                 } else if (widget) {
                     palette = widget->palette();
                 }
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                 return palette.color(QPalette::Base).darker(120).rgba();
-#else
-                return palette.color(QPalette::Base).dark(120).rgba();
-#endif
             }
             case QStyle::SH_LineEdit_PasswordCharacter: {
                 QFontMetrics fm = option ? option->fontMetrics : (widget ? widget->fontMetrics() : QFontMetrics(QFont()));
@@ -544,7 +512,7 @@ void SkulptureStyle::Private::readSettings(const QSettings &s)
     useIconColumnForCheckIndicators = false;
     useSelectionColorForCheckedIndicators = false;
     useSelectionColorForSelectedMenuItems = false;
-    useSingleClickToActivateItems = runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 0) ? -1 : 1;
+    useSingleClickToActivateItems = -1;
     expensiveShadows = true;
     allowTabulations = false;
 
@@ -754,12 +722,8 @@ void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option,
 void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 void paintSizeGrip(QPainter *painter, const QStyleOption *option);
 void paintScrollAreaCorner(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style);
-#endif
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 void paintIndicatorTabClose(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
-#endif
 
 void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option);
 void paintPanelMenuBar(QPainter *painter, const QStyleOptionFrame *frame);
@@ -770,12 +734,8 @@ void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const 
 void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option);
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style);
-#else
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option);
-#endif
 void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option);
 void paintHeaderSection(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
 void paintHeaderLabel(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
@@ -809,25 +769,6 @@ SkulptureStyle::Private::~Private()
 {
 	delete shortcut_handler;
 	delete settings;
-}
-
-
-int runtimeQtVersion()
-{
-    const char *vs = qVersion();
-    int v = 0;
-    int vp = 0;
-    while (true) {
-        char c = *vs++;
-        if (c >= '0' && c <= '9') {
-            vp *= 10;
-            vp += c - '0';
-        } else if (c == '.') {
-            v = (v | vp) << 8;
-        } else {
-            return v | vp;
-        }
-    }
 }
 
 
@@ -881,11 +822,7 @@ void SkulptureStyle::Private::register_draw_entries()
 	register_primitive(FrameGroupBox, FrameGroupBox, Frame);
 	register_primitive(FrameLineEdit, FrameLineEdit, Frame);
 	register_primitive(FrameMenu, FrameMenu, Default); // ### Qt 4.3 calls FrameMenu with SO_ToolBar for a toolbar
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 	register_primitive(FrameStatusBarItem, Nothing, Default);
-#else
-	register_primitive(FrameStatusBar, Nothing, Default);
-#endif
 	register_primitive(FrameTabWidget, TabWidgetFrame, TabWidgetFrame);
 	register_primitive(FrameWindow, FrameWindow, Frame);
 	register_primitive(FrameButtonBevel, PanelButtonTool, Default);
@@ -905,11 +842,7 @@ void SkulptureStyle::Private::register_draw_entries()
 	register_primitive(IndicatorArrowUp, IndicatorArrowUp, Default);
 	register_primitive(IndicatorBranch, IndicatorBranch, Default);
 	register_primitive(IndicatorButtonDropDown, PanelButtonTool, Default);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 	register_primitive(IndicatorItemViewItemCheck, IndicatorItemViewItemCheck, Default);
-#else
-	register_primitive(IndicatorViewItemCheck, IndicatorItemViewItemCheck, Default);
-#endif
 	register_primitive(IndicatorCheckBox, IndicatorCheckBox, Button);
 	register_primitive(IndicatorDockWidgetResizeHandle, Splitter, Default);
 	register_primitive(IndicatorHeaderArrow, HeaderSortIndicator, Header);
@@ -925,26 +858,18 @@ void SkulptureStyle::Private::register_draw_entries()
 //	register_primitive(PanelTipLabel, , );
 //	register_primitive(IndicatorTabTear, , );
 // Qt 4.2 additions
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
 	register_primitive(PanelScrollAreaCorner, ScrollAreaCorner, Default);
 // ###	register_primitive(Widget, , );
-#endif
 // Qt 4.3 additions
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 // TODO register_primitive(IndicatorColumnViewArrow, , );
-#endif
 // Qt 4.4 additions
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 //	register_primitive(IndicatorItemViewItemDrop, , );
 	register_primitive(PanelItemViewItem, PanelItemViewItem, ViewItem);
 //	register_primitive(PanelItemViewRow, , );
 //	register_primitive(PanelStatusBar, , );
-#endif
 // Qt 4.5 additions
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 5, 0))
 	register_primitive(IndicatorTabClose, IndicatorTabClose, Default);
 //      register_primitive(PanelMenu, , );
-#endif
 
 #define register_element(ce, f, so) draw_element_entry[QStyle::CE_ ## ce].type = QStyleOption::SO_ ## so; draw_element_entry[QStyle::CE_ ## ce].func = (drawElementFunc *) paint ## f;
 
@@ -997,20 +922,14 @@ void SkulptureStyle::Private::register_draw_entries()
 //	register_element(FocusFrame, , );
 	register_element(ComboBoxLabel, ComboBoxLabel, ComboBox);
 // Qt 4.1 additions
-//#if (QT_VERSION >= QT_VERSION_CHECK(4, 1, 0))
 	register_element(ToolBar, PanelToolBar, ToolBar);
-//#endif
 // Qt 4.3 additions
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 	register_element(ToolBoxTabShape, ToolBoxTabShape, ToolBox);
 	register_element(ToolBoxTabLabel, ToolBoxTabLabel, ToolBox);
 	register_element(HeaderEmptyArea, HeaderEmptyArea, Default);
 	register_element(ColumnViewGrip, Splitter, Default);
-#endif
 // Qt 4.4 additions
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 4, 0))
 //	register_element(ItemViewItem, , );
-#endif
 }
 
 

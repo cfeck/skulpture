@@ -5,9 +5,7 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QAbstractScrollArea>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 #include <QtGui/QMdiArea>
-#endif
 #include <QtGui/QApplication>
 #include <QtGui/QMouseEvent>
 #include <QtCore/QEvent>
@@ -360,11 +358,9 @@ void WidgetShadow::updateGeometry()
 			hide();
 		} else {
 			QWidget *parent = parentWidget();
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                         if (parent && !qobject_cast<QMdiArea *>(parent) && qobject_cast<QMdiArea *>(parent->parentWidget())) {
 				parent = parent->parentWidget();
 			}
-#endif
 			if (parent) {
 				QRect geo(widget_->x() - 10, widget_->y() - 5, widget_->frameGeometry().width() + 20, widget_->frameGeometry().height() + 15);
 				setGeometry(geo & parent->rect());
@@ -383,11 +379,9 @@ void WidgetShadow::updateZOrder()
 		} else {
 			stackUnder(widget_);
 			QWidget *parent = parentWidget();
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 			if (parent && !qobject_cast<QMdiArea *>(parent) && qobject_cast<QMdiArea *>(parent->parentWidget())) {
 				parent = parent->parentWidget();
 			}
-#endif
 			if (parent) {
 				QRect geo(widget_->x() - 10, widget_->y() - 5, widget_->frameGeometry().width() + 20, widget_->frameGeometry().height() + 15);
 				setGeometry(geo & parent->rect());

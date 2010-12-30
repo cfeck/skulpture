@@ -33,17 +33,9 @@ void paintDial(QPainter *painter, const QStyleOptionSlider *option, const QWidge
         opt.rect.setWidth(opt.rect.width() & ~1);
         opt.rect.setHeight(opt.rect.height() & ~1);
         ((QCommonStyle *) style)->QCommonStyle::drawComplexControl(QStyle::CC_Dial, &opt, painter, widget);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 6, 0))
         opt.rect.setWidth((opt.rect.width() & ~1) - 1);
         opt.rect.setHeight((opt.rect.height() & ~1) - 1);
         opt.rect.translate(1, 1);
-#else
-        if (runtimeQtVersion() >= QT_VERSION_CHECK(4, 6, 0)) {
-            opt.rect.setWidth((opt.rect.width() & ~1) - 1);
-            opt.rect.setHeight((opt.rect.height() & ~1) - 1);
-            opt.rect.translate(1, 1);
-        }
-#endif
 
 	// focus rectangle
 	if (option->state & QStyle::State_HasFocus) {

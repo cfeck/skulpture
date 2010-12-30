@@ -178,19 +178,11 @@ QColor AbstractFactory::evalColor()
 		}
 		case Darker: {
 			QColor color = evalColor();
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                         return color.darker(*p++);
-#else
-                        return color.dark(*p++);
-#endif
                 }
 		case Lighter: {
 			QColor color = evalColor();
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
                         return color.lighter(*p++);
-#else
-                        return color.light(*p++);
-#endif
                 }
 		default:
 			break;

@@ -101,11 +101,7 @@ void paintScrollArrow(QPainter *painter, const QStyleOption *option, Qt::ArrowTy
 	painter->setPen(Qt::NoPen);
         QColor color = option->palette.color(spin ? (option->state & QStyle::State_Enabled ? QPalette::WindowText : QPalette::Text) : QPalette::ButtonText);
 	if ((option->state & QStyle::State_MouseOver) && option->state & QStyle::State_Enabled /* && !(option->state & QStyle::State_Sunken)*/) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
 		color = option->palette.color(QPalette::Highlight).darker(200);
-#else
-                color = option->palette.color(QPalette::Highlight).dark(200);
-#endif
 	//	painter->setPen(QPen(Qt::white, 1.0));
 	} else {
 	//	painter->setPen(QPen(Qt::white, 0.5));

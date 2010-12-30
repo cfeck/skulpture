@@ -43,11 +43,9 @@ QRect subControlRectSpinBox(const QStyleOptionSpinBox *option, QStyle::SubContro
 {
     int fw = option->frame ? style->pixelMetric(QStyle::PM_SpinBoxFrameWidth, option, widget) : 0;
     int bw;
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
     if (option->buttonSymbols == QAbstractSpinBox::NoButtons) {
         bw = 0;
     } else
-#endif
     {
         bw = qMax(style->pixelMetric(QStyle::PM_ScrollBarExtent, option, widget), qApp->globalStrut().width());
     }
@@ -103,17 +101,9 @@ void paintComplexControlArea(QPainter *painter, const QStyleOption *option)
         color = option->palette.color(QPalette::Window);
         // ### should arrow areas have hover highlight?
         if (false && option->state & QStyle::State_MouseOver) {
-#if QT_VERSION >= QT_VERSION_CHECK(4, 3, 0)
             color = color.lighter(110);
-#else
-            color = color.light(110);
-#endif
         } else {
-#if QT_VERSION >= QT_VERSION_CHECK(4, 3, 0)
             color = color.lighter(107);
-#else
-            color = color.light(107);
-#endif
         }
     } else {
         color = option->palette.color(QPalette::Base);
@@ -172,9 +162,7 @@ static void paintSpinBoxUpDown(QPainter *painter, const QStyleOptionSpinBox *opt
 void paintSpinBox(QPainter *painter, const QStyleOptionSpinBox *option, const QWidget *widget, const QStyle *style)
 {
     // up/down controls
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
     if (option->buttonSymbols != QAbstractSpinBox::NoButtons)
-#endif
     {
         for (uint sc = QStyle::SC_SpinBoxUp; sc != QStyle::SC_SpinBoxFrame; sc <<= 1) {
             if (option->subControls & sc) {

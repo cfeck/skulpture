@@ -8,11 +8,6 @@
 #include <QtGui/QMenu>
 #include <QtGui/QShortcut>
 #include <QtGui/QApplication>
-#include <QtGui/QTabletEvent>
-#include <QtGui/QMouseEvent>
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
-#include <QtGui/QWidgetAction>
-#endif
 
 
 /*-----------------------------------------------------------------------*/
@@ -198,12 +193,7 @@ void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const 
     const int checkColumnWidth = checkSize + 2 * checkMargin;
     // FIXME qMax(checkSize, iconSize) for useIconColum
     const int iconColumnWidth = iconColumnMode == HideIconColumn ? 0 : option->maxIconWidth ? option->maxIconWidth - 4 + 2 * iconMargin : iconSize + 2 * iconMargin;
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-    // Qt 4.x has a bug where the option->rect is one pixel too wide
-    const QRect itemRect = runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0) ? option->rect.adjusted(0, 0, -1, 0) : option->rect;
-#else
     const QRect itemRect = option->rect;
-#endif
     QRect iconRect = horizontalVisualRect(itemRect, option, iconColumnWidth);
     QRect textRect = remainingHorizontalVisualRect(itemRect, option, iconColumnWidth);
 
@@ -406,12 +396,6 @@ void paintMenuTitle(QPainter *painter, const QStyleOptionToolButton *option, con
     QColor bgcolor = option->palette.color(bgrole);
     QStyleOptionToolButton opt = *option;
     opt.state &= ~(QStyle::State_Sunken | QStyle::State_On | QStyle::State_Selected | QStyle::State_HasFocus);
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-    if (runtimeQtVersion() < QT_VERSION_CHECK(4, 6, 0)) {
-        // Qt 4.x has a bug where the option->rect is one pixel too wide
-        opt.rect.adjust(0, 0, -1, 0);
-    }
-#endif
     opt.palette.setColor(QPalette::ButtonText, option->palette.color(QPalette::WindowText));
     paintThinFrame(painter, opt.rect, option->palette, -10, -20);
     paintThinFrame(painter, opt.rect.adjusted(1, 1, -1, -1), opt.palette, -30, 80, bgrole);
@@ -425,105 +409,4 @@ void paintMenuTitle(QPainter *painter, const QStyleOptionToolButton *option, con
     ((QCommonStyle *) style)->QCommonStyle::drawComplexControl(QStyle::CC_ToolButton, &opt, painter, widget);
 }
 
-
-/*-----------------------------------------------------------------------*/
-#if (QT_VERSION < QT_VERSION_CHECK(4, 6, 0))
-bool SkulptureStyle::Private::menuEventFilter(QMenu *menu, QEvent *event)
-{
-    QHash<QMenu *, MenuInfo>::iterator i = menuHash.begin();
-    while (i != menuHash.end()) {
-        if (!i->menu) {
-            i = menuHash.erase(i);
-        } else {
-            ++i;
-        }
-    }
-    i = menuHash.find(menu);
-    MenuInfo *menuInfo = i != menuHash.end() ? &(*i) : 0;
-
-    if (event->type() == QEvent::Hide || event->type() == QEvent::Destroy) {
-        if (menuInfo) {
-            menuHash.erase(i);
-        }
-        menuInfo = 0;
-    } else {
-        QPoint eventPos;
-        bool moveEvent = false;
-        if (event->type() == QEvent::TabletMove) {
-            QTabletEvent *tabletEvent = (QTabletEvent *) event;
-            eventPos = tabletEvent->pos();
-            moveEvent = true;
-        } else if (event->type() == QEvent::MouseMove) {
-            QMouseEvent *mouseEvent = (QMouseEvent *) event;
-            eventPos = mouseEvent->pos();
-            moveEvent = true;
-        }
-
-        QAction *menuAction = 0;
-        QAction *action = 0;
-        if (moveEvent && menu->rect().contains(eventPos)) {
-            action = menu->actionAt(eventPos);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
-            if (QWidgetAction * widgetAction = qobject_cast<QWidgetAction *>(action)) {
-                if (!widgetAction->defaultWidget()) {
-                    if (action->menu()) {
-                        menuAction = action;
-                    }
-                }
-            } else
-#endif
-            if (action && action->menu()) {
-                menuAction = action;
-            }
-        }
-
-        if (menuAction && !menuInfo) {
-            MenuInfo info;
-            info.menu = menu;
-            info.delayTimer = 0;
-            info.lastPos = eventPos;
-            info.eventCount = 0;
-            i = menuHash.insert(menu, info);
-            menuInfo = &(*i);
-        }
-
-        if (menuInfo) {
-            if (event->type() == QEvent::Enter) {
-                menuInfo->lastSubMenuAction = 0;
-                menuInfo->eventCount = 0;
-            } else if (event->type() == QEvent::Leave) {
-                menuInfo->lastSubMenuAction = 0;
-                menuInfo->eventCount = 0;
-            } else if (moveEvent) {
-                if (action != menuAction) {
-                    menuInfo->lastSubMenuAction = 0;
-                    menuInfo->eventCount = 0;
-                }
-                if (menu->rect().contains(eventPos)) {
-                    if (menuAction) {
-                        QAction *last = menuInfo->lastSubMenuAction;
-                        menuInfo->lastSubMenuAction = menuAction;
-                        if (last && last == menuAction) {
-                            if (event->type() == QEvent::MouseMove) {
-                                QMouseEvent *mouseEvent = (QMouseEvent *) event;
-                                ++menuInfo->eventCount;
-                                if (menuInfo->eventCount > 2 && mouseEvent->buttons() == Qt::NoButton) {
-                                    event->accept();
-                                    return true;
-                                }
-                            }
-                        } else {
-                            menuInfo->eventCount = 0;
-                        }
-                    }
-                } else {
-                    menuInfo->lastSubMenuAction = 0;
-                    menuInfo->eventCount = 0;
-                }
-            }
-        }
-    }
-    return false;
-}
-#endif
 

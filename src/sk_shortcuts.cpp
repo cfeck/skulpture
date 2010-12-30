@@ -95,7 +95,6 @@ static inline void updateShortcuts(QWidget *widget)
 bool ShortcutHandler::eventFilter(QObject *watched, QEvent *event)
 {
     if (!watched->isWidgetType()) {
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 2, 0))
         switch (event->type()) {
             case QEvent::TabletEnterProximity:
                 if (tabletCursorState != TabletCursor) {
@@ -117,7 +116,6 @@ bool ShortcutHandler::eventFilter(QObject *watched, QEvent *event)
             default:
                 break;
         }
-#endif
         return QObject::eventFilter(watched, event);
     }
 	QWidget *widget = reinterpret_cast<QWidget *>(watched);
