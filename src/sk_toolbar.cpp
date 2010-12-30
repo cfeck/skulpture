@@ -193,7 +193,7 @@ void paintToolButton(QPainter *painter, const QStyleOptionToolButton *option, co
                     const QToolButton *button = qobject_cast<const QToolButton *>(widget);
 
                     if (button && button->isDown() && button->toolButtonStyle() == Qt::ToolButtonTextBesideIcon) {
-                        if (widget->parentWidget() && widget->parentWidget()->inherits("KMenu")) {
+                        if (widget->parentWidget() && widget->parentWidget()->inherits("QMenu")) {
                             paintMenuTitle(painter, option, widget, style);
                             return;
                         }
