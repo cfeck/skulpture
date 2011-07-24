@@ -197,6 +197,8 @@ QString QtMdiDecoration::visibleName() const
 void QtMdiDecoration::initStyleOption(QStyleOption &opt)
 {
 	opt.init(widget());
+	opt.rect.adjust(layoutMetric(LM_OuterPaddingLeft, true), layoutMetric(LM_OuterPaddingTop, true),
+		-layoutMetric(LM_OuterPaddingRight, true), -layoutMetric(LM_OuterPaddingBottom, true));
 	opt.fontMetrics = QFontMetrics(options()->font(isActive()));
 	if (isActive()) {
 		opt.state |= QStyle::State_Active;
@@ -372,6 +374,8 @@ void QtMdiDecoration::paintEvent(QPaintEvent */*event */)
 	// draw the title bar
 	QStyleOptionTitleBar option;
 	initStyleOption(option);
+	QRect rect = option.rect;
+	painter.setClipRegion(rect);
 	option.titleBarState = option.state;
 	option.subControls = QStyle::SC_TitleBarLabel; // | QStyle::SC_TitleBarSysMenu;
 	if (noBorder) {
@@ -392,13 +396,13 @@ void QtMdiDecoration::paintEvent(QPaintEvent */*event */)
 #endif
 //	option.palette = options()->palette(ColorTitleBar, isActive());
 	if (coloredFrame && border && (!onlyActiveFrame || isActive())) {
-		painter.fillRect(widget()->rect(), options()->color(ColorTitleBar, isActive()));
+		painter.fillRect(rect, options()->color(ColorTitleBar, isActive()));
 	} else {
-		painter.fillRect(widget()->rect(), option.palette.color(QPalette::Window));
+		painter.fillRect(rect, option.palette.color(QPalette::Window));
                 if (borderHeight >= borderWidth + 2) {
                     QPalette palette;
                     palette.setCurrentColorGroup(QPalette::Disabled);
-                    qDrawShadeLine(&painter, 1, widget()->rect().bottom() + qMax(2, borderWidth) - borderHeight, widget()->rect().right(), widget()->rect().bottom() + qMax(borderWidth, 2) - borderHeight, palette);
+                    qDrawShadeLine(&painter, 1, rect.bottom() + qMax(2, borderWidth) - borderHeight, rect.right(), rect.bottom() + qMax(borderWidth, 2) - borderHeight, palette);
                 }
 	}
 	QFont font = options()->font(isActive());
@@ -413,17 +417,19 @@ void QtMdiDecoration::paintEvent(QPaintEvent */*event */)
 	// TODO use MDI code
 	painter.save();
         border = borderWidth > 0 && border;
-	int captionWidth = width() - buttonsLeftWidth() - buttonsRightWidth() - (border ? 16 : 4);
+	int captionWidth = rect.width() - buttonsLeftWidth() - buttonsRightWidth() - (border ? 16 : 4);
 	option.text = option.fontMetrics.elidedText(caption(), Qt::ElideMiddle, captionWidth);
 	QRect labelRect = QRect((border ? 8 : 2) + buttonsLeftWidth(), 0, captionWidth, titleHeight + 4);
+	labelRect.translate(rect.topLeft());
         Qt::Alignment alignment = titleAlignment;
         if (titleAlignment & Qt::AlignHCenter && centerFullWidth) {
-            if (labelRect.left() > (width() - option.fontMetrics.boundingRect(option.text).width()) >> 1) {
+            if (labelRect.left() > (rect.width() - option.fontMetrics.boundingRect(option.text).width()) >> 1) {
                 alignment = Qt::AlignLeft;
-            } else if (labelRect.right() < (width() + option.fontMetrics.boundingRect(option.text).width()) >> 1) {
+            } else if (labelRect.right() < (rect.width() + option.fontMetrics.boundingRect(option.text).width()) >> 1) {
                 alignment = Qt::AlignRight;
             } else {
-                labelRect = QRect(0, 0, width(), titleHeight + 4);
+                labelRect = rect;
+                labelRect.setHeight(titleHeight + 4);
             }
         }
         if (border) {
@@ -459,8 +465,8 @@ void QtMdiDecoration::paintEvent(QPaintEvent */*event */)
 			painter.fillRect(frameOptions.rect.adjusted(frameOptions.rect.width() - 1, 0, 0, 0), outerLineFill);
 			frameOptions.rect.adjust(1, 1, -1, -1);
 		}
-                QRegion region = widget()->rect();
-                region -= widget()->rect().adjusted(borderWidth, borderWidth, -borderWidth, -borderWidth);
+                QRegion region = rect;
+                region -= rect.adjusted(borderWidth, borderWidth, -borderWidth, -borderWidth);
                 painter.setClipRegion(region);
 		painter.drawPrimitive(QStyle::PE_FrameWindow, frameOptions);
 	}
