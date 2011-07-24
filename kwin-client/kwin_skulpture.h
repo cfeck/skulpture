@@ -79,6 +79,7 @@ class QtMdiDecoration : public KCommonDecoration
 
 	protected:
 		void initStyleOption(QStyleOption &opt);
+		QPixmap createShadowPixmap() const;
 
 	private:
 		/* cached style hints and pixel metrics */
@@ -98,6 +99,7 @@ class QtMdiDecoration : public KCommonDecoration
 		int borderWidth;
                 int borderHeight;
                 QStyle *style;
+		QPixmap shadowPixmap;
 };
 
 

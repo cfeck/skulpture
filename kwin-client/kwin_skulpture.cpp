@@ -194,6 +194,23 @@ QString QtMdiDecoration::visibleName() const
 	return i18n("Sculpture");
 }
 
+QPixmap QtMdiDecoration::createShadowPixmap()
+{
+    QImage image(65, 65, QImage::Format_ARGB32_Premultiplied);
+
+    QPainter p(&image);
+    p.setRenderHints(QPainter::Antialiasing, true);
+    p.setPen(Qt::NoPen);
+
+    QRect rect(0, 0, 65, 65);
+    for (int i = 0; i < 32; ++i) {
+        p.setBrush(QColor(0, 0, 0, i / 3));
+        p.drawRoundedRect(rect, 20, 20);
+        rect.adjust(1, 1, -1, -1);
+    }
+    p.end();
+    return QPixmap::fromImage(image);
+}
 
 void QtMdiDecoration::initStyleOption(QStyleOption &opt)
 {
@@ -378,6 +395,11 @@ void QtMdiDecoration::init()
 	widget()->setAttribute(Qt::WA_OpaquePaintEvent, true);
         if (paintOnScreen >= 0) {
             widget()->setAttribute(Qt::WA_PaintOnScreen, paintOnScreen == 0 ? false : true);
+        }
+        if (renderShadows) {
+            shadowPixmap = createShadowPixmap();
+        } else {
+            shadowPixmap = QPixmap();
         }
 }
 
