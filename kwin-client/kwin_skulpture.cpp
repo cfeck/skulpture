@@ -194,9 +194,10 @@ QString QtMdiDecoration::visibleName() const
 	return i18n("Sculpture");
 }
 
-QPixmap QtMdiDecoration::createShadowPixmap()
+QPixmap QtMdiDecoration::createShadowPixmap() const
 {
     QImage image(65, 65, QImage::Format_ARGB32_Premultiplied);
+    image.fill(0);
 
     QPainter p(&image);
     p.setRenderHints(QPainter::Antialiasing, true);
@@ -410,9 +411,20 @@ void QtMdiDecoration::paintEvent(QPaintEvent */*event */)
 //	QWidget *w = widget();
 	QStylePainter painter(widget());
 
-	// draw the title bar
 	QStyleOptionTitleBar option;
 	initStyleOption(option);
+
+	// draw the shadow
+	if (renderShadows && maximizeMode() != MaximizeFull) {
+	    QRect rect = widget()->rect();
+	    QRegion region = rect;
+	    region -= option.rect;
+	    painter.setClipRegion(region);
+	    rect.adjust(8, 12, -8, -4);
+	    qDrawBorderPixmap(&painter, rect, QMargins(32, 32, 32, 32), shadowPixmap);
+	}
+
+	// draw the title bar
 	QRect rect = option.rect;
 	painter.setClipRegion(rect);
 	option.titleBarState = option.state;
