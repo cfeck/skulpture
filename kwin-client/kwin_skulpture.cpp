@@ -350,7 +350,7 @@ void QtMdiDecoration::init()
 	renderShadows = conf.readEntry("RenderShadows", true) && KWindowSystem::compositingActive();
         showIcon = conf.readEntry("UseApplicationIcon", true);
         onlyActiveFrame = conf.readEntry("DrawOnlyActiveFrames", false);
-        paintOnScreen = -1;
+        paintOnScreen = KWindowSystem::compositingActive() ? -1 : 0;
         if (conf.hasKey("PaintOnScreen")) {
             paintOnScreen = conf.readEntry("PaintOnScreen", false) ? 1 : 0;
         }
