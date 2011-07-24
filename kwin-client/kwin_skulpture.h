@@ -84,6 +84,7 @@ class QtMdiDecoration : public KCommonDecoration
 		/* cached style hints and pixel metrics */
 		bool coloredFrame : 1;
 		bool contrastFrame : 1;
+		bool renderShadows : 1;
 		bool noBorder : 1;
 		bool autoRaise : 1;
                 bool showIcon: 1;

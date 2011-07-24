@@ -24,6 +24,7 @@
 #include <KDE/KConfig>
 #include <KDE/KConfigGroup>
 #include <KDE/KLocale>
+#include <KDE/KWindowSystem>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QLibrary>
@@ -285,7 +286,7 @@ int QtMdiDecoration::layoutMetric(LayoutMetric lm, bool respectWindowState, cons
         case LM_OuterPaddingTop:
         case LM_OuterPaddingRight:
         case LM_OuterPaddingBottom:
-            return 0;
+            return renderShadows ? 32 : 0;
     }
     return KCommonDecoration::layoutMetric(lm, respectWindowState, button);
 }
@@ -328,6 +329,7 @@ void QtMdiDecoration::init()
 	}
 	coloredFrame = conf.readEntry("UseTitleBarBorderColors", false);
 	contrastFrame = conf.readEntry("UseExtraContrastBorder", false);
+	renderShadows = conf.readEntry("RenderShadows", true) && KWindowSystem::compositingActive();
         showIcon = conf.readEntry("UseApplicationIcon", true);
         onlyActiveFrame = conf.readEntry("DrawOnlyActiveFrames", false);
         paintOnScreen = -1;
@@ -536,6 +538,9 @@ bool SkulptureDecorationFactory::supports(Ability ability) const
 		case AbilityAnnounceColors:
 		case AbilityColorTitleBack:
 		case AbilityColorTitleFore:
+			return true;
+		case AbilityProvidesShadow:
+		case AbilityUsesAlphaChannel:
 			return true;
 		default:
 			return false;
