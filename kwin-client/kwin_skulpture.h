@@ -65,6 +65,7 @@ class QtMdiDecoration : public KCommonDecoration
 		virtual bool decorationBehaviour(DecorationBehaviour behaviour) const;
 		virtual int layoutMetric(LayoutMetric lm, bool respectWindowState = true, const KCommonDecorationButton *button = 0) const;
 		virtual void updateWindowShape();
+		virtual void updateCaption();
 
 		virtual void init();
 		virtual KCommonDecorationButton *createButton(ButtonType type);

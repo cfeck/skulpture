@@ -233,6 +233,17 @@ void QtMdiDecoration:: updateWindowShape()
 	}
 }
 
+void QtMdiDecoration:: updateCaption()
+{
+    QStyleOption option;
+    initStyleOption(option);
+    bool border = !(maximizeMode() == MaximizeFull && !options()->moveResizeMaximizedWindows());
+    border = borderWidth > 0 && border;
+    int captionWidth = option.rect.width() - buttonsLeftWidth() - buttonsRightWidth() - (border ? 16 : 4);
+    QRect labelRect = QRect((border ? 8 : 2) + buttonsLeftWidth(), 0, captionWidth, titleHeight + 4);
+    labelRect.translate(option.rect.topLeft());
+    widget()->update(labelRect.adjusted(-4, -1, 4, 1));
+}
 
 int QtMdiDecoration::layoutMetric(LayoutMetric lm, bool respectWindowState, const KCommonDecorationButton *button) const
 {
