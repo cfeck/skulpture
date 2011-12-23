@@ -173,7 +173,7 @@ void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, co
         for (int i = 1; i < option->items.size(); ++i) {
             QStyleOptionQ3ListViewItem item = option->items.at(i);
             if (y + item.totalHeight > 0 && y < option->rect.height()) {
-                opt.state = QStyle::State_Item;
+                opt.state = QStyle::State_Item | (option->state & QStyle::State_Enabled);
                 if (i + 1 < option->items.size()) {
                     opt.state |= QStyle::State_Sibling;
                 }
@@ -185,7 +185,7 @@ void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, co
                 paintIndicatorBranch(painter, &opt);
 
                 if (opt.state & QStyle::State_Sibling && item.height < item.totalHeight) {
-                    opt.state = QStyle::State_Sibling;
+                    opt.state = QStyle::State_Sibling | (option->state & QStyle::State_Enabled);
                     opt.rect = QRect(option->rect.left(), y + item.height,
                                      option->rect.width(), item.totalHeight - item.height);
                     paintIndicatorBranch(painter, &opt);
