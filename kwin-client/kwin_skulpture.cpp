@@ -304,7 +304,7 @@ int QtMdiDecoration::layoutMetric(LayoutMetric lm, bool respectWindowState, cons
         case LM_OuterPaddingTop:
         case LM_OuterPaddingRight:
         case LM_OuterPaddingBottom:
-            return renderShadows ? 32 : 0;
+            return renderShadows && maximizeMode() != MaximizeFull ? 32 : 0;
     }
     return KCommonDecoration::layoutMetric(lm, respectWindowState, button);
 }
