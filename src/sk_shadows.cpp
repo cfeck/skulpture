@@ -336,8 +336,11 @@ bool WidgetShadow::event(QEvent *e)
 			p.fillRect(r.adjusted(i, k, -i, -k), QColor(0, 0, 0, i));
 		}
 #else
+			p.setRenderHints(QPainter::Antialiasing, true);
 			for (int i = 0; i < 10; ++i) {
-				p.fillRect(r, QColor(0, 0, 0, 2 + i));
+				p.setBrush(QColor(0, 0, 0, 2 + i));
+				p.setPen(Qt::NoPen);
+				p.drawRoundedRect(r, 7, 7);
 				r.adjust(1, 1, -1, -1);
 			}
 #endif
