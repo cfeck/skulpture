@@ -399,7 +399,7 @@ void paintIndicatorMenuCheckMark(QPainter *painter, const QStyleOptionMenuItem *
 	}
 }
 
-
+#ifdef QT3_SUPPORT
 void paintQ3CheckListIndicator(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget, const QStyle *style)
 {
 	if (!option->items.isEmpty()) {
@@ -426,7 +426,7 @@ void paintQ3CheckListExclusiveIndicator(QPainter *painter, const QStyleOptionQ3L
 		paintIndicatorRadioButton(painter, &buttonOption);
 	}
 }
-
+#endif
 
 void paintIndicatorItemViewItemCheck(QPainter *painter, const QStyleOption *option)
 {

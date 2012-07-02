@@ -4,8 +4,8 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QAbstractSpinBox>
-#include <QtGui/QApplication>
+#include <QtWidgets/QAbstractSpinBox>
+#include <QtWidgets/QApplication>
 #include <QtGui/QPainter>
 
 

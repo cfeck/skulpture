@@ -5,7 +5,7 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QDockWidget>
+#include <QtWidgets/QDockWidget>
 
 
 /*-----------------------------------------------------------------------*/

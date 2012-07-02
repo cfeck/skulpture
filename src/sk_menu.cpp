@@ -5,9 +5,9 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QMenu>
-#include <QtGui/QShortcut>
-#include <QtGui/QApplication>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QShortcut>
+#include <QtWidgets/QApplication>
 
 
 /*-----------------------------------------------------------------------*/

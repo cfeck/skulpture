@@ -4,7 +4,7 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QProgressBar>
+#include <QtWidgets/QProgressBar>
 #include <QtCore/QTimerEvent>
 
 

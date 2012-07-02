@@ -4,9 +4,9 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QAbstractScrollArea>
-#include <QtGui/QMdiArea>
-#include <QtGui/QApplication>
+#include <QtWidgets/QAbstractScrollArea>
+#include <QtWidgets/QMdiArea>
+#include <QtWidgets/QApplication>
 #include <QtGui/QMouseEvent>
 #include <QtCore/QEvent>
 #include <QtGui/QPainter>

@@ -6,15 +6,15 @@
 #include "skulpture_p.h"
 #include <QtGui/QKeyEvent>
 #include <QtGui/QFocusEvent>
-#include <QtGui/QMenu>
-#include <QtGui/QMenuBar>
-#include <QtGui/QAbstractButton>
-#include <QtGui/QLabel>
-#include <QtGui/QDockWidget>
-#include <QtGui/QToolBox>
-#include <QtGui/QGroupBox>
-#include <QtGui/QTabBar>
-#include <QtGui/QApplication>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QAbstractButton>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QToolBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QTabBar>
+#include <QtWidgets/QApplication>
 
 
 /*-----------------------------------------------------------------------*/

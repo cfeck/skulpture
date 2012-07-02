@@ -4,7 +4,7 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 
 /*-----------------------------------------------------------------------*/

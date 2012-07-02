@@ -4,7 +4,7 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QAbstractSlider>
+#include <QtWidgets/QAbstractSlider>
 #include <QtGui/QPainter>
 
 

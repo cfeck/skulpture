@@ -5,13 +5,13 @@
 
 #include "skulpture_p.h"
 #include <QtCore/QSettings>
-#include <QtGui/QFrame>
-#include <QtGui/QApplication>
-#include <QtGui/QShortcut>
-#include <QtGui/QLayout>
-#include <QtGui/QFormLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QCheckBox>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QShortcut>
+#include <QtWidgets/QLayout>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QCheckBox>
 
 
 /*-----------------------------------------------------------------------*/
@@ -174,8 +174,11 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_IndicatorHeight:
         case PM_ExclusiveIndicatorWidth:
         case PM_ExclusiveIndicatorHeight:
+#ifdef QT3_SUPPORT
         case PM_CheckListButtonSize:
-        case PM_CheckListControllerSize: {
+        case PM_CheckListControllerSize:
+#endif
+        {
             // do not use strut width, because label is usually wide enough
             return qMax(d->textLineHeight(option, widget), QApplication::globalStrut().height());
         }
@@ -474,7 +477,9 @@ QSize SkulptureStyle::sizeFromContents(ContentsType type, const QStyleOption *op
             break;
 
         case CT_Splitter:
+#ifdef QT3_SUPPORT
         case CT_Q3DockWindow:
+#endif
             return contentsSize;
         case CT_ProgressBar:
             if (option && option->type == QStyleOption::SO_ProgressBar) {
@@ -502,7 +507,9 @@ QSize SkulptureStyle::sizeFromContents(ContentsType type, const QStyleOption *op
 
         case CT_Slider:
         case CT_ScrollBar:
+#ifdef QT3_SUPPORT
         case CT_Q3Header:
+#endif
             return contentsSize;
 
         case CT_LineEdit:
@@ -607,15 +614,16 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
             break;
 
         case SE_SliderFocusRect:
-
+#ifdef QT3_SUPPORT
         case SE_Q3DockWindowHandleRect:
+#endif
             break;
 
         case SE_ProgressBarGroove:
         case SE_ProgressBarContents:
         case SE_ProgressBarLabel:
             return option->rect;
-
+#ifdef QT3_SUPPORT
         case SE_DialogButtonAccept:
         case SE_DialogButtonReject:
         case SE_DialogButtonApply:
@@ -626,7 +634,7 @@ QRect SkulptureStyle::subElementRect(SubElement element, const QStyleOption *opt
         case SE_DialogButtonRetry:
         case SE_DialogButtonCustom:
             break;
-
+#endif
         case SE_ToolBoxTabContents:
             return option->rect.adjusted(11, 0, -6, 0);
 

@@ -76,7 +76,7 @@ enum ArrowPlacementMode
 #include <QtCore/QPointer>
 #include <QtCore/QSignalMapper>
 #include <QtCore/QHash>
-#include <QtGui/QStyleOption>
+#include <QtWidgets/QStyleOption>
 class QPainter;
 class QSettings;
 class QTextEdit;

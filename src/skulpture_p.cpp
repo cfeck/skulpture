@@ -6,10 +6,10 @@
 #include "skulpture_p.h"
 #include <QtCore/QSettings>
 #include <QtCore/QLocale>
-#include <QtGui/QSlider>
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QWizard>
-#include <QtGui/QFormLayout>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QWizard>
+#include <QtWidgets/QFormLayout>
 
 
 /*-----------------------------------------------------------------------*/
@@ -265,7 +265,7 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
 		}
 		switch (setting->type) {
 			case StyleSetting::Color:
-				value = qRgba(0, 0, 0, 255) + QLocale::c().toInt(value.toString().mid(1), 0, 16);
+				value = qRgba(0, 0, 0, 255);//FIXME + QLocale::c().toInt(value.toString().mid(1), 0, 16);
 				break;
 			case StyleSetting::Bool:
 				value = value.toBool();
@@ -695,8 +695,10 @@ void paintPushButtonBevel(QPainter *painter, const QStyleOptionButton *option, c
 void paintTabWidgetFrame(QPainter *painter, const QStyleOptionTabWidgetFrame *option, const QWidget *widget);
 void paintIndicatorCheckBox(QPainter *painter, const QStyleOptionButton *option);
 void paintIndicatorItemViewItemCheck(QPainter *painter, const QStyleOption *option);
+#ifdef QT3_SUPPORT
 void paintQ3CheckListIndicator(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget, const QStyle *style);
 void paintQ3CheckListExclusiveIndicator(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget, const QStyle *style);
+#endif
 void paintIndicatorRadioButton(QPainter *painter, const QStyleOptionButton *option);
 void paintIndicatorSpinDown(QPainter *painter, const QStyleOption *option);
 void paintIndicatorSpinUp(QPainter *painter, const QStyleOption *option);
@@ -808,12 +810,14 @@ void SkulptureStyle::Private::register_draw_entries()
 #define register_primitive(pe, f, so) draw_primitive_entry[QStyle::PE_ ## pe].type = QStyleOption::SO_ ## so; draw_primitive_entry[QStyle::PE_ ## pe].func = (drawElementFunc *) paint ## f;
 
         /* PRIMITIVE ELEMENT */
+#ifdef QT3_SUPPORT
 // Qt 3.x compatibility
 //###	register_primitive(Q3CheckListController, Nothing, Default);
 	register_primitive(Q3CheckListExclusiveIndicator, Q3CheckListExclusiveIndicator, Default);
 	register_primitive(Q3CheckListIndicator, Q3CheckListIndicator, Default);
 	register_primitive(Q3DockWindowSeparator, ToolBarSeparator, Default);
 //###	register_primitive(Q3Separator, Q3Separator, Default);
+#endif
 // Qt 4.0 Frames
 	register_primitive(Frame, StyledFrame, Frame);
 	register_primitive(FrameDefaultButton, Nothing, Button);
@@ -935,6 +939,6 @@ void SkulptureStyle::Private::register_draw_entries()
 
 /*-----------------------------------------------------------------------*/
 
-#include "skulpture_p.moc"
+//#include "skulpture_p.moc"
 
 

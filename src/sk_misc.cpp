@@ -5,7 +5,7 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QTableView>
+#include <QtWidgets/QTableView>
 
 
 /*-----------------------------------------------------------------------*/
@@ -157,7 +157,7 @@ void paintIndicatorBranch(QPainter *painter, const QStyleOption *option)
 
 
 /*-----------------------------------------------------------------------*/
-
+#ifdef QT3_SUPPORT
 void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget,
                      const QStyle *style)
 {
@@ -194,7 +194,7 @@ void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, co
         }
     }
 }
-
+#endif
 
 /*-----------------------------------------------------------------------*/
 

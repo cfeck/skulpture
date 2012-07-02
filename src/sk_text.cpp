@@ -5,13 +5,13 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QTextEdit>
-#include <QtGui/QPlainTextEdit>
-#include <QtGui/QTextBrowser>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QTextBrowser>
 #include <QtGui/QTextFrame>
 #include <QtGui/QTextCursor>
-#include <QtGui/QScrollBar>
-#include <QtGui/QApplication>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QApplication>
 
 
 /*-----------------------------------------------------------------------*/

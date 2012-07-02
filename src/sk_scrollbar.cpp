@@ -5,8 +5,8 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QAbstractScrollArea>
-#include <QtGui/QApplication>
+#include <QtWidgets/QAbstractScrollArea>
+#include <QtWidgets/QApplication>
 #include <climits>
 
 

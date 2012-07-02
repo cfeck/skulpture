@@ -6,9 +6,9 @@
 #include "skulpture_p.h"
 #include "sk_factory.h"
 #include <QtCore/QSettings>
-#include <QtGui/QStyleOption>
-#include <QtGui/QDockWidget>
-#include <QtGui/QFrame>
+#include <QtWidgets/QStyleOption>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QFrame>
 #include <QtGui/QPainter>
 #include <cstdlib>
 

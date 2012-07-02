@@ -22,47 +22,49 @@
 // ### This file is a mess
 
 #include "skulpture_p.h"
-#include <QtGui/QLayout>
-#include <QtGui/QLCDNumber>
+#include <QtWidgets/QLayout>
+#include <QtWidgets/QLCDNumber>
 #include <QtGui/QPainter>
-#include <QtGui/QLabel>
-#include <QtGui/QProgressBar>
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QProgressBar>
+#include <QtWidgets/QScrollBar>
 #include <QtGui/QIcon>
-#include <QtGui/QStatusBar>
-#include <QtGui/QAbstractScrollArea>
-#include <QtGui/QScrollArea>
-#include <QtGui/QMdiArea>
-#include <QtGui/QMdiSubWindow>
-#include <QtGui/QMenu>
-#include <QtGui/QMenuBar>
-#include <QtGui/QWorkspace>
-#include <QtGui/QHeaderView>
-#include <QtGui/QListView>
-#include <QtGui/QTreeView>
-#include <QtGui/QTableView>
-#include <QtGui/QMainWindow>
-#include <QtGui/QSplitter>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QAbstractScrollArea>
+#include <QtWidgets/QScrollArea>
+#include <QtWidgets/QMdiArea>
+#include <QtWidgets/QMdiSubWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#ifdef QT3_SUPPORT
+#include <QtWidgets/QWorkspace>
+#endif
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QListView>
+#include <QtWidgets/QTreeView>
+#include <QtWidgets/QTableView>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSplitter>
 #include <QtGui/QPainterPath>
-#include <QtGui/QGroupBox>
-#include <QtGui/QDockWidget>
-#include <QtGui/QToolButton>
-#include <QtGui/QTextEdit>
-#include <QtGui/QPlainTextEdit>
-#include <QtGui/QFormLayout>
-#include <QtGui/QStackedLayout>
-#include <QtGui/QGridLayout>
-#include <QtGui/QBoxLayout>
-#include <QtGui/QComboBox>
-#include <QtGui/QDial>
-#include <QtGui/QRadioButton>
-#include <QtGui/QCheckBox>
-#include <QtGui/QToolBox>
-#include <QtGui/QToolBar>
-#include <QtGui/QApplication>
-#include <QtGui/QPushButton>
-#include <QtGui/QLineEdit>
-#include <QtGui/QDialog>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QStackedLayout>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDial>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QToolBox>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QDialog>
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 #include <QtGui/QKeyEvent>
@@ -70,29 +72,6 @@
 #include <QtCore/QTimer>
 #include <cstdio>
 #include <QtCore/QDebug>
-
-/*-----------------------------------------------------------------------*/
-
-#include <QtGui/QStylePlugin>
-
-class SkulptureStylePlugin : public QStylePlugin
-{
-	public:
-		QStringList keys() const {
-			return QStringList(QLatin1String("Skulpture"));
-		}
-
-		QStyle *create(const QString &key) {
-			if (key.toLower() == QLatin1String("skulpture")) {
-				return new SkulptureStyle;
-			}
-			return 0;
-		}
-};
-
-
-Q_EXPORT_PLUGIN2(skulpture, SkulptureStylePlugin)
-
 
 /*-----------------------------------------------------------------------*/
 
@@ -1105,6 +1084,6 @@ SkulptureDrawFunction(drawControl, ControlElement, QStyleOption, d->draw_element
 
 /*-----------------------------------------------------------------------*/
 
-#include "skulpture.moc"
+//#include "skulpture.moc"
 
 

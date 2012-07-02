@@ -5,7 +5,7 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QMdiSubWindow>
+#include <QtWidgets/QMdiSubWindow>
 #include <QtCore/QSettings>
 #include <cmath>
 

@@ -4,16 +4,16 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QAbstractSpinBox>
-#include <QtGui/QSpinBox>
-#include <QtGui/QDoubleSpinBox>
-#include <QtGui/QAbstractItemView>
+#include <QtWidgets/QAbstractSpinBox>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QAbstractItemView>
 #include <QtGui/QMouseEvent>
-#include <QtGui/QApplication>
-#include <QtGui/QComboBox>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtGui/QPainter>
-#include <QtGui/QLCDNumber>
-#include <QtGui/QLineEdit>
+#include <QtWidgets/QLCDNumber>
+#include <QtWidgets/QLineEdit>
 #include <cmath>
 
 

@@ -5,7 +5,7 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QProgressBar>
+#include <QtWidgets/QProgressBar>
 #include <QtCore/QTime>
 #include <cmath>
 

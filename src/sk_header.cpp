@@ -6,7 +6,7 @@
 #include "skulpture_p.h"
 #include "sk_factory.h"
 #include <QtGui/QPainter>
-#include <QtGui/QHeaderView>
+#include <QtWidgets/QHeaderView>
 
 
 /*-----------------------------------------------------------------------*/

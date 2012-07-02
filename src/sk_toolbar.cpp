@@ -5,9 +5,9 @@
 
 #include "skulpture_p.h"
 #include <QtGui/QPainter>
-#include <QtGui/QToolBar>
-#include <QtGui/QToolButton>
-#include <QtGui/QTabBar>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QTabBar>
 
 
 /*-----------------------------------------------------------------------*/

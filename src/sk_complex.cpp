@@ -39,7 +39,9 @@ QRect SkulptureStyle::subControlRect(ComplexControl control, const QStyleOptionC
             break;
         SC_CASE(Slider, Slider);
         SC_CASE(TitleBar, TitleBar);
+#ifdef QT3_SUPPORT
         case CC_Q3ListView: break;
+#endif
         SC_CASE(ToolButton, ToolButton);
         case CC_Dial: break;
         SC_CASE(GroupBox, GroupBox);
@@ -90,7 +92,9 @@ extern void paintScrollBar(QPainter *painter, const QStyleOptionSlider *option, 
 extern void paintSlider(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
 extern void paintToolButton(QPainter *painter, const QStyleOptionToolButton *option, const QWidget *widget, const QStyle *style);
 extern void paintTitleBar(QPainter *painter, const QStyleOptionTitleBar *option, const QWidget *widget, const QStyle *style);
+#ifdef QT3_SUPPORT
 extern void paintQ3ListView(QPainter *painter, const QStyleOptionQ3ListView *option, const QWidget *widget, const QStyle *style);
+#endif
 extern void paintDial(QPainter *painter, const QStyleOptionSlider *option, const QWidget *widget, const QStyle *style);
 //extern void paintGroupBox(QPainter *painter, const QStyleOptionGroupBox *option, const QWidget *widget, const QStyle *style);
 //extern void paintMdiControls(QPainter *painter, const QStyleOptionComplex *option, const QWidget *widget, const QStyle *style);
@@ -122,7 +126,9 @@ void SkulptureStyle::drawComplexControl(ComplexControl control, const QStyleOpti
         CC_CASE(Slider, Slider);
         CC_CASE(ToolButton, ToolButton);
         CC_CASE(TitleBar, TitleBar);
+#ifdef QT3_SUPPORT
         CC_CASE(Q3ListView, Q3ListView);
+#endif
         CC_CASE(Dial, Slider);
         case CC_GroupBox:
             break;
