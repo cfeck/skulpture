@@ -365,6 +365,9 @@ void WidgetShadow::updateGeometry()
 				parent = parent->parentWidget();
 			}
 			if (parent) {
+				if (qobject_cast<QAbstractScrollArea *>(parent)) {
+					parent = qobject_cast<QAbstractScrollArea *>(parent)->viewport();
+				}
 				QRect geo(widget_->x() - 10, widget_->y() - 5, widget_->frameGeometry().width() + 20, widget_->frameGeometry().height() + 15);
 				setGeometry(geo & parent->rect());
 			}
@@ -386,6 +389,9 @@ void WidgetShadow::updateZOrder()
 				parent = parent->parentWidget();
 			}
 			if (parent) {
+				if (qobject_cast<QAbstractScrollArea *>(parent)) {
+					parent = qobject_cast<QAbstractScrollArea *>(parent)->viewport();
+				}
 				QRect geo(widget_->x() - 10, widget_->y() - 5, widget_->frameGeometry().width() + 20, widget_->frameGeometry().height() + 15);
 				setGeometry(geo & parent->rect());
 			}
