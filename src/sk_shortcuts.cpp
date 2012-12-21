@@ -50,7 +50,7 @@ bool ShortcutHandler::underlineShortcut(const QWidget *widget) const
 			if (widget->hasFocus()) {
 				return true;
 			}
-			QList<QWidget *> children = qFindChildren<QWidget *>(widget);
+			QList<QWidget *> children = widget->findChildren<QWidget *>();
             Q_FOREACH (QWidget *child, children) {
 				if (child->hasFocus()) {
 					return true;
@@ -83,7 +83,7 @@ static inline bool hasShortcut(QWidget *widget)
 
 static inline void updateShortcuts(QWidget *widget)
 {
-	QList<QWidget *> children = qFindChildren<QWidget *>(widget);
+	QList<QWidget *> children = widget->findChildren<QWidget *>();
     Q_FOREACH (QWidget *child, children) {
 		if (child->isVisible() && hasShortcut(child)) {
 			child->update();
