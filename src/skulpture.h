@@ -90,12 +90,21 @@ class SkulptureStyle : public QCommonStyle
     public Q_SLOTS:
         int skulpturePrivateMethod(SkulpturePrivateMethod id, void *data = 0);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    public:
+        QIcon standardIcon(StandardPixmap standardIcon, const QStyleOption *option,
+                           const QWidget *widget) const;
+        int layoutSpacing(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2,
+                          Qt::Orientation orientation, const QStyleOption *option,
+                          const QWidget *widget) const;
+#else
     protected Q_SLOTS:
         QIcon standardIconImplementation(StandardPixmap standardIcon, const QStyleOption *option,
                                          const QWidget *widget) const;
         int layoutSpacingImplementation(QSizePolicy::ControlType control1,
                                         QSizePolicy::ControlType control2, Qt::Orientation orientation,
                                          const QStyleOption *option, const QWidget *widget) const;
+#endif
 
     private:
         void init();

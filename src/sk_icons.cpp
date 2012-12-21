@@ -135,8 +135,11 @@ static const ShapeFactory::Code * const titleBarCustomDescriptions[] = {
 	titleBarUnbelowButtonDescription
 };
 
-
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+QIcon SkulptureStyle::standardIcon(QStyle::StandardPixmap standardIcon, const QStyleOption *option, const QWidget *widget) const
+#else
 QIcon SkulptureStyle::standardIconImplementation(QStyle::StandardPixmap standardIcon, const QStyleOption *option, const QWidget *widget) const
+#endif
 {
 	const ShapeFactory::Code *code = 0;
         int numStates = 1;
@@ -257,7 +260,11 @@ QIcon SkulptureStyle::standardIconImplementation(QStyle::StandardPixmap standard
                 }
                 return icon;
 	}
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+        return ParentStyle::standardIcon(standardIcon, option, widget);
+#else
 	return ParentStyle::standardIconImplementation(standardIcon, option, widget);
+#endif
 }
 
 

@@ -312,8 +312,11 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
 
 
 /*-----------------------------------------------------------------------*/
-
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+int SkulptureStyle::layoutSpacing(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2, Qt::Orientation orientation, const QStyleOption *option, const QWidget *widget) const
+#else
 int SkulptureStyle::layoutSpacingImplementation(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2, Qt::Orientation orientation, const QStyleOption *option, const QWidget *widget) const
+#endif
 {
     Q_UNUSED(control2);
 
