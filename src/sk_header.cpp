@@ -53,7 +53,11 @@ void paintHeaderSection(QPainter *painter, const QStyleOptionHeader *option, con
                 if (isHeaderEnabled(option, widget)) {
 			bool hover = false;
 			const QHeaderView *view = qobject_cast<const QHeaderView *>(widget);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+                        if (view && (view->sectionsClickable() || view->sectionsMovable())) {
+#else
 			if (view && (view->isClickable() || view->isMovable())) {
+#endif
 				hover = option->state & QStyle::State_MouseOver;
 			}
 			painter->fillRect(option->rect, option->palette.color(QPalette::Base).darker(hover ? 104 : (option->state & QStyle::State_On ? 120 : 106)));
