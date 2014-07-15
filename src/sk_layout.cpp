@@ -405,7 +405,8 @@ static inline QSize sizeFromContentsSpinBox(const QStyleOptionSpinBox *option, c
 {
     Q_UNUSED(option); Q_UNUSED(widget); Q_UNUSED(style);
 
-    return contentsSize + QSize(4, 0);
+    int fw = option->frame ? style->proxy()->pixelMetric(QStyle::PM_SpinBoxFrameWidth, option, widget) : 0;
+    return contentsSize + QSize(2 * fw + 4, 2 * fw);
 }
 
 
