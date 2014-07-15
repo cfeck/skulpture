@@ -304,6 +304,8 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_ScrollView_ScrollBarSpacing: return 0;
         case PM_SubMenuOverlap: return -2;
 
+        case PM_ScrollView_ScrollBarOverlap: return 0;
+
         case PM_CustomBase: // avoid warning
             break;
     }
