@@ -408,7 +408,8 @@ static inline QSize sizeFromContentsSpinBox(const QStyleOptionSpinBox *option, c
     Q_UNUSED(option); Q_UNUSED(widget); Q_UNUSED(style);
 
     int fw = option->frame ? style->proxy()->pixelMetric(QStyle::PM_SpinBoxFrameWidth, option, widget) : 0;
-    return contentsSize + QSize(2 * fw + 4, 2 * fw);
+    int bw = option->buttonSymbols != QAbstractSpinBox::NoButtons ? qMax(style->pixelMetric(QStyle::PM_ScrollBarExtent, option, widget), qApp->globalStrut().width()) : 0;
+    return contentsSize + QSize(2 * fw + bw + 8, 2 * fw);
 }
 
 
