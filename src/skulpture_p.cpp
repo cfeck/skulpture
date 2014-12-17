@@ -224,6 +224,9 @@ int SkulptureStyle::styleHint(StyleHint hint, const QStyleOption *option, const 
                 }
                 return 0;
             }
+            case QStyle::SH_Menu_SupportsSections: {
+                return true;
+            }
             default:
                 break;
         }
