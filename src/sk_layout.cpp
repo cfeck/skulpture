@@ -302,10 +302,16 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
             return (fontHeight(option, widget) & ~1);
         }
         case PM_ScrollView_ScrollBarSpacing: return 0;
-        case PM_SubMenuOverlap: return -2;
-
         case PM_ScrollView_ScrollBarOverlap: return 0;
 
+        case PM_SubMenuOverlap: return -2;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+        case PM_TreeViewIndentation: return fontHeight(option, widget);
+#endif
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
+        case PM_HeaderDefaultSectionSizeHorizontal: return 10 + 6 * fontHeight(option, widget);
+        case PM_HeaderDefaultSectionSizeVertical: return 6 + fontHeight(option, widget);
+#endif
         case PM_CustomBase: // avoid warning
             break;
     }
