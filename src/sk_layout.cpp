@@ -423,7 +423,7 @@ static inline QSize sizeFromContentsGroupBox(const QStyleOptionGroupBox *option,
 {
     Q_UNUSED(widget); Q_UNUSED(style);
 
-    if (!(option->features & QStyleOptionFrameV2::Flat)) {
+    if (!(option->features & QStyleOptionFrame::Flat)) {
         return contentsSize + QSize(fontHeight(option, widget) & ~1, 0);
     }
     return contentsSize;
@@ -448,7 +448,7 @@ static inline QSize sizeFromContentsProgressBar(const QStyleOptionProgressBar *o
 {
     Q_UNUSED(widget); Q_UNUSED(style);
 
-    if (option->version >= 2 && ((const QStyleOptionProgressBarV2 *) option)->orientation == Qt::Vertical) {
+    if (option->version >= 2 && ((const QStyleOptionProgressBar *) option)->orientation == Qt::Vertical) {
         return contentsSize + QSize(2 * widgetSize, 6);
     }
     return contentsSize + QSize(6, (textShift & 1) + 2 * widgetSize - 6);

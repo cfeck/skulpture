@@ -68,7 +68,7 @@ class Tab
 	public:
 		TabState state;
 		TabAnim anim;
-		QStyleOptionTabV3 oldOption;
+		QStyleOptionTab oldOption;
 };
 
 
@@ -110,8 +110,8 @@ const TabBarState *SkulpturePrivate::tabBarState(const QWidget *widget)
 static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *option, QTabBar::Shape shape)
 {
     QRect rect = r;
-    if (!isVertical(shape) && option->version >= QStyleOptionTabBarBaseV2::Version) {
-        if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
+    if (!isVertical(shape) && option->version >= QStyleOptionTabBarBase::Version) {
+        if (((const QStyleOptionTabBarBase *) option)->documentMode) {
             rect.adjust(-10, 0, 10, 0);
         }
     }
@@ -130,8 +130,8 @@ static void paintTabBase(QPainter *painter, const QRect &r, const QStyleOption *
 
 void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget)
 {
-    if (option->version >= QStyleOptionTabBarBaseV2::Version) {
-        if (((const QStyleOptionTabBarBaseV2 *) option)->documentMode) {
+    if (option->version >= QStyleOptionTabBarBase::Version) {
+        if (((const QStyleOptionTabBarBase *) option)->documentMode) {
             QRect r = option->rect;
             if (tabPos(option->shape) == North && r.top() > 0) {
                 r.setTop(0);
@@ -230,8 +230,8 @@ void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const
 	if (widget && widget->parentWidget()) {
 		if (!qstrcmp(widget->metaObject()->className(), "KTabBar") && !qstrcmp(widget->parentWidget()->metaObject()->className(), "KonqFrameTabs")) {
 			konq = true;
-                        if (option->version >= QStyleOptionTabV3::Version) {
-                            if (((const QStyleOptionTabV3 *) option)->documentMode) {
+                        if (option->version >= QStyleOptionTab::Version) {
+                            if (((const QStyleOptionTab *) option)->documentMode) {
                                 konq = false;
                             }
                         }
@@ -497,7 +497,7 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 //	font.setBold(true);
 //	painter->setFont(font);
 #endif
-    QStyleOptionTabV3 opt;
+    QStyleOptionTab opt;
 
 	int offset = TAB_SHIFT;
 	if (option->state & QStyle::State_Selected || (option->state & QStyle::State_MouseOver && option->state & QStyle::State_Enabled)) {
@@ -505,7 +505,7 @@ void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const
 	}
 
 	if (option->version > 1) {
-		opt = *((QStyleOptionTabV2 *) option);
+		opt = *((QStyleOptionTab *) option);
 	} else {
 		opt = *option;
 	}

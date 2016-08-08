@@ -39,7 +39,7 @@ static bool isDiskSpaceIndicator(const QWidget *widget)
 
 /*-----------------------------------------------------------------------*/
 
-static bool progressBarContentsCentered(const QStyleOptionProgressBarV2 *option, const QWidget *widget)
+static bool progressBarContentsCentered(const QStyleOptionProgressBar *option, const QWidget *widget)
 {
     const bool vertical = option->version >= 2 && option->orientation == Qt::Vertical;
     if (vertical) {
@@ -52,7 +52,7 @@ static bool progressBarContentsCentered(const QStyleOptionProgressBarV2 *option,
 }
 
 
-static QRect progressBarContentsRect(const QStyleOptionProgressBarV2 *option, bool contentsCentered)
+static QRect progressBarContentsRect(const QStyleOptionProgressBar *option, bool contentsCentered)
 {
     // configuration options
     const int border = 2;
@@ -113,7 +113,7 @@ void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *op
 }
 
 
-void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style)
+void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style)
 {
     if (!option->textVisible || option->text.isEmpty()) {
         return;
@@ -173,7 +173,7 @@ enum AnimationMode {
 };
 
 
-static QColor progressBarFillColor(const QStyleOptionProgressBarV2 *option, const QWidget *widget)
+static QColor progressBarFillColor(const QStyleOptionProgressBar *option, const QWidget *widget)
 {
     QColor fillColor = option->palette.color(BG_ROLE_CHUNK);
     if (isPasswordStrengthIndicator(widget)) {
@@ -188,7 +188,7 @@ static QColor progressBarFillColor(const QStyleOptionProgressBarV2 *option, cons
 }
 
 
-void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style)
+void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style)
 {
     // configuration
     const bool busyIndicator = option->minimum == option->maximum;

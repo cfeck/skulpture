@@ -13,7 +13,7 @@
 extern void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 
 #if 0
-void paintPanelPlacesViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style)
+void paintPanelPlacesViewItem(QPainter *painter, const QStyleOptionViewItem *option, const QWidget *widget, const QStyle *style)
 {
     QStyleOption opt = *option;
     if (opt.state & QStyle::State_Selected) {
@@ -26,7 +26,7 @@ void paintPanelPlacesViewItem(QPainter *painter, const QStyleOptionViewItemV4 *o
 }
 #endif
 
-void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style)
+void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItem *option, const QWidget *widget, const QStyle *style)
 {
 	Q_UNUSED(style);
 #if 0
@@ -44,17 +44,17 @@ void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *opt
         if (largePanel) {
             if (option->version >= 4) {
                 switch (option->viewItemPosition) {
-                    case QStyleOptionViewItemV4::Beginning:
+                    case QStyleOptionViewItem::Beginning:
                         panelRect = option->rect.adjusted(1, 1, 0, 0);
                         break;
-                    case QStyleOptionViewItemV4::End:
+                    case QStyleOptionViewItem::End:
                         panelRect = option->rect.adjusted(0, 1, -1, 0);
                         break;
-                    case QStyleOptionViewItemV4::Middle:
+                    case QStyleOptionViewItem::Middle:
                         panelRect = option->rect.adjusted(0, 1, 0, 0);
                         break;
-                    case QStyleOptionViewItemV4::Invalid:
-                    case QStyleOptionViewItemV4::OnlyOne:
+                    case QStyleOptionViewItem::Invalid:
+                    case QStyleOptionViewItem::OnlyOne:
                         panelRect = option->rect.adjusted(1, 1, -1, 0);
                         break;
                 }
@@ -65,7 +65,7 @@ void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *opt
             panelRect = option->rect;
         }
 
-        if (option->version >= 2 && option->features & QStyleOptionViewItemV2::Alternate) {
+        if (option->version >= 2 && option->features & QStyleOptionViewItem::Alternate) {
 		painter->fillRect(panelRect, option->palette.color(QPalette::AlternateBase));
 	} else {
 		painter->fillRect(panelRect, option->backgroundBrush);
@@ -94,22 +94,22 @@ void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *opt
 	}
 	if (option->version >= 4) {
 		switch (option->viewItemPosition) {
-			case QStyleOptionViewItemV4::Beginning:
+			case QStyleOptionViewItem::Beginning:
 				painter->drawLine(panelRect.topLeft() + QPoint(0, 1), panelRect.bottomLeft() - QPoint(0, 1));
 				painter->drawLine(panelRect.topLeft(), panelRect.topRight());
 				painter->drawLine(panelRect.bottomLeft(), panelRect.bottomRight());
 				break;
-			case QStyleOptionViewItemV4::End:
+			case QStyleOptionViewItem::End:
 				painter->drawLine(panelRect.topRight() + QPoint(0, 1), panelRect.bottomRight() - QPoint(0, 1));
 				painter->drawLine(panelRect.topLeft(), panelRect.topRight());
 				painter->drawLine(panelRect.bottomLeft(), panelRect.bottomRight());
 				break;
-			case QStyleOptionViewItemV4::Middle:
+			case QStyleOptionViewItem::Middle:
 				painter->drawLine(panelRect.topLeft(), panelRect.topRight());
 				painter->drawLine(panelRect.bottomLeft(), panelRect.bottomRight());
 				break;
-			case QStyleOptionViewItemV4::Invalid:
-			case QStyleOptionViewItemV4::OnlyOne:
+			case QStyleOptionViewItem::Invalid:
+			case QStyleOptionViewItem::OnlyOne:
 				painter->drawRect(panelRect.adjusted(0, 0, -1, -1));
 				break;
 		}
@@ -246,7 +246,7 @@ void paintSizeGrip(QPainter *painter, const QStyleOption *option)
 
 extern void paintCommandButtonPanel(QPainter *painter, const QStyleOptionButton *option, const QWidget *widget);
 
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option)
+void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option)
 {
 	QRect r = option->rect;
 	if (option->state & QStyle::State_Selected) {
@@ -267,7 +267,7 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option
 		button.rect.adjust(-1, -1, 1, 1);
 		// ### needs QPalette::Window ?
 		paintCommandButtonPanel(painter, &button, 0);
-        } else if (option->version >= 2 && option->selectedPosition == QStyleOptionToolBoxV2::PreviousIsSelected) {
+        } else if (option->version >= 2 && option->selectedPosition == QStyleOptionToolBox::PreviousIsSelected) {
 		r.setHeight(2);
 		paintThinFrame(painter, r, option->palette, 60, -20);
 	} else {
@@ -288,10 +288,10 @@ void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option
 
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style)
 {
-    QStyleOptionToolBoxV2 opt;
+    QStyleOptionToolBox opt;
 
     if (option->version >= 2) {
-        opt = *((const QStyleOptionToolBoxV2 *) option);
+        opt = *((const QStyleOptionToolBox *) option);
     } else {
         opt = *option;
     }

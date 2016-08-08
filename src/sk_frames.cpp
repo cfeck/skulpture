@@ -362,7 +362,7 @@ QRect subControlRectGroupBox(const QStyleOptionGroupBox *option, QStyle::SubCont
             return option->rect.adjusted(0, option->fontMetrics.height(), 0, 0);
         case QStyle::SC_GroupBoxCheckBox:
         case QStyle::SC_GroupBoxLabel: {
-            if (!(option->features & QStyleOptionFrameV2::Flat)) {
+            if (!(option->features & QStyleOptionFrame::Flat)) {
                 int x = option->direction == Qt::LeftToRight ? -8 : 8;
                 int y = (subControl == QStyle::SC_GroupBoxCheckBox) ? 0 : 1;
                 return ((const QCommonStyle *) style)->QCommonStyle::subControlRect(QStyle::CC_GroupBox, option, subControl, widget).adjusted(x, y, x, y);

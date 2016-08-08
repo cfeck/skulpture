@@ -727,7 +727,7 @@ void paintFrameFocusRect(QPainter *painter, const QStyleOptionFocusRect *option,
 void paintPanelButtonTool(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 void paintSizeGrip(QPainter *painter, const QStyleOption *option);
 void paintScrollAreaCorner(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
-void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItemV4 *option, const QWidget *widget, const QStyle *style);
+void paintPanelItemViewItem(QPainter *painter, const QStyleOptionViewItem *option, const QWidget *widget, const QStyle *style);
 void paintIndicatorTabClose(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle *style);
 
 void paintMenuBarEmptyArea(QPainter *painter, const QStyleOption *option);
@@ -739,7 +739,7 @@ void paintMenuItem(QPainter *painter, const QStyleOptionMenuItem *option, const 
 void paintTabBarTabShape(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintTabBarTabLabel(QPainter *painter, const QStyleOptionTab *option, const QWidget *widget, const QStyle *style);
 void paintFrameTabBarBase(QPainter *painter, const QStyleOptionTabBarBase *option, const QWidget *widget);
-void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBoxV2 *option);
+void paintToolBoxTabShape(QPainter *painter, const QStyleOptionToolBox *option);
 void paintToolBoxTabLabel(QPainter *painter, const QStyleOptionToolBox *option, const QWidget *widget, const QStyle *style);
 void paintHeaderEmptyArea(QPainter *painter, const QStyleOption *option);
 void paintHeaderSection(QPainter *painter, const QStyleOptionHeader *option, const QWidget *widget, const QStyle *style);
@@ -753,8 +753,8 @@ void paintScrollBarFirst(QPainter *painter, const QStyleOptionSlider *option);
 void paintScrollBarLast(QPainter *painter, const QStyleOptionSlider *option);
 void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option);
 void paintProgressBarGroove(QPainter *painter, const QStyleOptionProgressBar *option);
-void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style);
-void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBarV2 *option, const QWidget *widget, const QStyle *style);
+void paintProgressBarContents(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
+void paintProgressBarLabel(QPainter *painter, const QStyleOptionProgressBar *option, const QWidget *widget, const QStyle *style);
 void paintSplitter(QPainter *painter, const QStyleOption *option);
 void paintDockWidgetTitle(QPainter *painter, const QStyleOptionDockWidget *option, const QWidget *widget, const QStyle *style);
 void paintRubberBand(QPainter *paint, const QStyleOptionRubberBand *option);
